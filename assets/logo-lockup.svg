@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 320" role="img" aria-label="Farled — safe routing for AI-assisted engineering">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 320" role="img" aria-label="Farled — safe routing for AI-assisted engineering">
   <g transform="translate(24,24) scale(0.53)">
     <g fill="none" stroke="#12303F" stroke-width="58" stroke-linecap="round">
       <path d="M164 92 V 336"/>
@@ -9,8 +9,8 @@
     <rect x="42" y="356" width="76" height="76" fill="#C7401F"/>
     <path d="M312 438 h 92 l -46 -80 z" fill="#0E7C4A"/>
   </g>
-  <text x="330" y="196" font-family="Newsreader, Georgia, serif" font-weight="500"
+  <text x="330" y="192" font-family="Newsreader, Georgia, serif" font-weight="500"
         font-size="170" letter-spacing="0.5" fill="#12303F">Farled</text>
-  <text x="336" y="262" font-family="Spline Sans Mono, ui-monospace, monospace"
-        font-size="34" letter-spacing="6" fill="#47656F">SAFE ROUTING FOR PARALLEL ENGINEERING</text>
+  <text x="338" y="258" font-family="Spline Sans Mono, ui-monospace, monospace"
+        font-size="31" letter-spacing="5" fill="#47656F">SAFE ROUTING FOR AI-ASSISTED ENGINEERING</text>
 </svg>
