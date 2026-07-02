@@ -249,6 +249,9 @@ section p { max-width: var(--measure); }
 }
 .foot-sep { margin: 0 .4rem; }
 .foot-meta { font-size: .78rem; }
+.colophon a { color: var(--ink-soft); }
+.colophon a:hover { color: var(--ink); }
+.foot-company { width: 100%; font-size: .82rem; padding-top: .4rem; }
 
 /* ---- responsive ---- */
 @media (max-width: 900px) {
