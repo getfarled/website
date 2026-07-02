@@ -226,9 +226,17 @@ section p { max-width: var(--measure); }
 .cmd { background: var(--ink); color: #DCEAF2; border-radius: 3px; padding: .9rem 1rem; overflow-x: auto; margin-top: .6rem; min-width: 0; max-width: 100%; }
 .cmd code { font-family: var(--mono); font-size: .82rem; line-height: 1.6; }
 .cmd-wide { margin-top: 1rem; max-width: 46rem; }
-.paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; margin-top: 2rem; align-items: start; }
-.path { border: 1.5px solid var(--shoal); border-radius: 3px; padding: 1.3rem; background: var(--deepwater); min-width: 0; }
+/* Full-width rows: copy left, commands get the room they deserve right. */
+.paths { display: grid; grid-template-columns: 1fr; gap: 1.4rem; margin-top: 2rem; }
+.path {
+  border: 1.5px solid var(--shoal); border-radius: 3px; padding: 1.5rem;
+  background: var(--deepwater); min-width: 0;
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 1.5rem 2rem; align-items: start;
+}
 .path:last-child { border-color: var(--gold); }
+.path-info, .path-how { min-width: 0; }
+.path-how .cmd { margin-top: 0; }
 .path-tag { font-family: var(--mono); font-size: .74rem; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: .7rem; display: flex; align-items: center; gap: .5rem; }
 .path h3 { font-family: var(--display); font-weight: 500; font-size: 1.25rem; margin-bottom: .5rem; }
 .path p { font-size: .93rem; color: var(--ink-soft); }
@@ -240,7 +248,7 @@ section p { max-width: var(--measure); }
 .agents-any a { color: var(--ink); }
 .gs-foot { margin-top: 2rem; color: var(--ink-soft); }
 .gs-foot a { color: var(--ink); font-weight: 600; }
-@media (max-width: 900px) { .paths { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .path { grid-template-columns: 1fr; gap: 1rem; } }
 
 /* ---- colophon ---- */
 .colophon {

@@ -242,39 +242,51 @@
 
   <div class="paths">
     <article class="path">
-      <p class="path-tag"><span class="buoy-dot green"></span>Solo · 60 seconds</p>
-      <h3>Just you (and your agents)</h3>
-      <p>Everything runs on your machine. Prove the loop, then run it for real:</p>
-      <pre class="cmd"><code>farled demo collision
+      <div class="path-info">
+        <p class="path-tag"><span class="buoy-dot green"></span>Solo · 60 seconds</p>
+        <h3>Just you (and your agents)</h3>
+        <p>Everything runs on your machine. Prove the loop, then run it for real.</p>
+      </div>
+      <div class="path-how">
+        <pre class="cmd"><code>farled demo collision
 farled serve          # radar + dashboard on localhost
 farled report         # in each repo / worktree</code></pre>
-    </article>
-
-    <article class="path">
-      <p class="path-tag"><span class="buoy-dot green"></span>Team · self-hosted OSS</p>
-      <h3>A few of you, your own server</h3>
-      <p>One machine hosts the radar; everyone joins it in one command:</p>
-      <pre class="cmd"><code># host
-farled serve --addr &lt;private-ip&gt;:4711
-
-# every laptop (humans and agents alike)
-farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
-      <div class="path-caution">
-        <strong>Know the trade:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal, office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens and isolation? That's Cloud, below.
       </div>
     </article>
 
     <article class="path">
-      <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
-      <h3>Authenticated, org-isolated, annotated</h3>
-      <p>An admin creates the org and hands out tokens; laptops join the same way:</p>
-      <pre class="cmd"><code># admin, once
+      <div class="path-info">
+        <p class="path-tag"><span class="buoy-dot green"></span>Team · self-hosted OSS</p>
+        <h3>A few of you, your own server</h3>
+        <p>One machine hosts the radar; everyone joins it in one command.</p>
+      </div>
+      <div class="path-how">
+        <pre class="cmd"><code># host
+farled serve --addr &lt;private-ip&gt;:4711
+
+# every laptop (humans and agents alike)
+farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
+        <div class="path-caution">
+          <strong>Know the trade:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal, office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens and isolation? That's Cloud, below.
+        </div>
+      </div>
+    </article>
+
+    <article class="path">
+      <div class="path-info">
+        <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
+        <h3>Authenticated, org-isolated, annotated</h3>
+        <p>An admin creates the org and hands out tokens; laptops join the same way.</p>
+        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates and policy autopilot.</p>
+      </div>
+      <div class="path-how">
+        <pre class="cmd"><code># admin, once
 farled-cloud org create acme "Acme"
 farled-cloud token issue acme "henrik-laptop"
 
 # every laptop
 farled quickconnect https://farled.acme.dev --token fld_…</code></pre>
-      <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates and policy autopilot.</p>
+      </div>
     </article>
   </div>
 
