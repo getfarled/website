@@ -24,8 +24,8 @@
     <span class="brand-name">Farled</span>
   </div>
   <nav class="topnav" aria-label="Main">
-    <a href="#departures">Departures</a>
-    <a href="#arrivals">Arrivals</a>
+    <a href="#underway">Underway</a>
+    <a href="#inbound">Inbound</a>
     <a href="#open-core">Open&nbsp;core</a>
     <a href="#privacy">Privacy</a>
     <a class="nav-cta" href="#get-started">Get started</a>
@@ -118,10 +118,10 @@
 </section>
 
 <!-- ============ DEPARTURES / ARRIVALS ============ -->
-<section class="two-motions" id="departures">
+<section class="two-motions" id="underway">
   <p class="note-label">NOTE B — HOW IT WORKS</p>
   <div class="motion">
-    <h2><em>Departures</em> — work already underway</h2>
+    <h2><em>Underway</em> — work already in motion</h2>
     <p>Local reporters and a GitHub connector observe real state: branches, worktrees, dirty files, changed line ranges, symbols, PRs. Deterministic detectors compare it all, live.</p>
     <ul class="feature-list">
       <li><strong>Hunk overlap</strong> — two sessions editing the same lines, flagged in seconds.</li>
@@ -130,8 +130,8 @@
       <li><strong>PR annotations</strong> — one living comment per pull request: current collisions, then the all-clear.</li>
     </ul>
   </div>
-  <div class="motion" id="arrivals">
-    <h2><em>Arrivals</em> — signals becoming safe tasks</h2>
+  <div class="motion" id="inbound">
+    <h2><em>Inbound</em> — signals becoming safe tasks</h2>
     <p>Production errors, webhooks and tickets are normalized, deduplicated and mapped to the code they implicate — then routed to agents only under rules you wrote.</p>
     <ul class="feature-list">
       <li><strong>Sentry intake</strong> — verified webhooks; five repeat alerts become one signal with a count.</li>
@@ -228,24 +228,58 @@
   </div>
 </section>
 
-<!-- ============ GET STARTED ============ -->
+<!-- ============ GETTING STARTED ============ -->
 <section class="getstarted" id="get-started">
-  <p class="note-label">NOTE E — GET UNDERWAY</p>
+  <p class="note-label">NOTE E — GETTING STARTED</p>
   <h2>Chart your first passage</h2>
-  <div class="gs-grid">
-    <div class="gs-step">
-      <h3>Install</h3>
-      <pre class="cmd"><code>go install github.com/getfarled/farled/cmd/farled@latest</code></pre>
-    </div>
-    <div class="gs-step">
-      <h3>Prove the loop</h3>
-      <pre class="cmd"><code>farled demo collision</code></pre>
-    </div>
-    <div class="gs-step">
-      <h3>Give your agents the chart</h3>
-      <pre class="cmd"><code>claude mcp add farled -- farled mcp</code></pre>
-    </div>
+  <p class="gs-lede">Three routes, depending on how many of you are sailing. Every path starts the same way:</p>
+  <pre class="cmd cmd-wide"><code>go install github.com/getfarled/farled/cmd/farled@latest</code></pre>
+
+  <div class="paths">
+    <article class="path">
+      <p class="path-tag"><span class="buoy-dot green"></span>Solo · 60 seconds</p>
+      <h3>Just you (and your agents)</h3>
+      <p>Everything runs on your machine. Prove the loop, then run it for real:</p>
+      <pre class="cmd"><code>farled demo collision
+farled serve          # radar + dashboard on localhost
+farled report         # in each repo / worktree</code></pre>
+    </article>
+
+    <article class="path">
+      <p class="path-tag"><span class="buoy-dot green"></span>Team · self-hosted OSS</p>
+      <h3>A few of you, your own server</h3>
+      <p>One machine hosts the radar; everyone joins it in one command:</p>
+      <pre class="cmd"><code># host
+farled serve --addr &lt;private-ip&gt;:4711
+
+# every laptop (humans and agents alike)
+farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
+      <div class="path-caution">
+        <strong>Know the trade:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal, office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens and isolation? That's Cloud, below.
+      </div>
+    </article>
+
+    <article class="path">
+      <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
+      <h3>Authenticated, org-isolated, annotated</h3>
+      <p>An admin creates the org and hands out tokens; laptops join the same way:</p>
+      <pre class="cmd"><code># admin, once
+farled-cloud org create acme "Acme"
+farled-cloud token issue acme "henrik-laptop"
+
+# every laptop
+farled quickconnect https://farled.acme.dev --token fld_…</code></pre>
+      <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates and policy autopilot.</p>
+    </article>
   </div>
+
+  <div class="agents-any">
+    <h3>Then give <em>any</em> agent the chart</h3>
+    <p>Farled speaks <a href="https://modelcontextprotocol.io">MCP</a>, the open standard — so this works with Claude Code, Codex, Cursor, Gemini CLI, or anything else that speaks MCP. <span class="mono">quickconnect</span> prints your exact snippet; the universal form is:</p>
+    <pre class="cmd cmd-wide"><code>{ "mcpServers": { "farled": { "command": "farled", "args": ["mcp"] } } }</code></pre>
+    <p class="path-note">Agents get <span class="mono">farled_query_active_work</span> — "who else is touching this file?" — plus the worker tools to receive, accept and report dispatched tasks.</p>
+  </div>
+
   <p class="gs-foot">Repositories open at launch — <a href="mailto:henrik.engstrom@gmail.com?subject=Farled%20early%20access">ask for early access</a> or a design-partner seat.</p>
 </section>
 
