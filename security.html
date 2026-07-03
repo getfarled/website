@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security — Farled</title>
+<meta name="description" content="How Farled handles your data: metadata-only by structure, verified webhooks, hashed tokens, org-scoped tenancy, and an inspectable open-source edge.">
+<link rel="canonical" href="https://farled.dev/security">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cg fill='none' stroke='%2312303F' stroke-width='86' stroke-linecap='round'%3E%3Cpath d='M164 92 V 330'/%3E%3Cpath d='M164 122 C 252 122 288 104 392 104'/%3E%3Cpath d='M164 244 C 244 244 272 228 354 228'/%3E%3C/g%3E%3Crect x='20' y='340' width='120' height='120' fill='%23C7401F'/%3E%3Cpath d='M290 460 h 136 l -68 -116 z' fill='%230E7C4A'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="sheet">
+
+<header class="masthead">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round">
+        <path d="M164 92 V 336"/>
+        <path d="M164 116 C 252 116 288 98 386 98"/>
+        <path d="M164 238 C 244 238 272 222 348 222"/>
+        <path d="M164 336 V 486" stroke-dasharray="30 42" stroke-width="46"/>
+      </g>
+      <rect x="42" y="356" width="76" height="76" fill="var(--port)"/>
+      <path d="M312 438 h 92 l -46 -80 z" fill="var(--starboard)"/>
+    </svg>
+    <span class="brand-name">Farled</span>
+  </div>
+  <nav class="topnav" aria-label="Main">
+    <a href="/#underway">Underway</a>
+    <a href="/#inbound">Inbound</a>
+    <a href="/#pricing">Pricing</a>
+    <a class="nav-cta" href="/#get-started">Get started</a>
+  </nav>
+</header>
+
+<section class="privacy">
+  <p class="note-label">SECURITY — FOR THE PERSON WHO HAS TO SAY YES</p>
+  <h2>Everything a security review asks. <em>Answered up front.</em></h2>
+  <p class="pr-lede">Farled sits close to your code, so it is built to be inspected. The entire edge — everything that runs on engineers' machines — is Apache-2.0 open source. This page is the short version of what an auditor finds.</p>
+
+  <h3 style="margin-top:2.5rem">Data classes</h3>
+  <div class="cols2" style="margin-top:1rem">
+    <div>
+      <h3>Class A — metadata, the default</h3>
+      <p class="mono-list">file paths · line ranges · branch names · symbol names · repo &amp; worktree IDs · timestamps · counts · source-issue IDs</p>
+      <p style="margin-top:.6rem">This is all the wire protocol can carry by default. <strong>No field in farled/v1 can hold file contents, diffs, prompts, or chat logs</strong> — verified by tests that plant a canary secret and audit every transmitted byte.</p>
+    </div>
+    <div>
+      <h3>Class B &amp; C — content, opt-in or never</h3>
+      <p>Scoped content (issue excerpts, failure summaries) is opt-in per source and bounded. Sensitive content — source files, prompt history, agent chat logs, scratchpads, secrets — is Class C: <strong>not collected, with no configuration that enables it.</strong></p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2.5rem">Controls</h3>
+  <ul style="margin-top:1rem; padding-left:1.2rem">
+    <li><strong>Inspectable reporter.</strong> <span class="mono">farled report --preview</span> prints every payload that would be sent and transmits nothing. Built-in exclusions for <span class="mono">.env</span>, keys and secret paths cannot be disabled.</li>
+    <li><strong>Verified webhooks.</strong> Every inbound connector authenticates in its provider's native scheme — GitHub <span class="mono">X-Hub-Signature-256</span>, Sentry and Linear HMAC, PagerDuty <span class="mono">v1=</span> signatures, Alertmanager bearer secrets. Unsigned traffic is rejected before parsing.</li>
+    <li><strong>Hashed tokens, org-scoped everything.</strong> API tokens are stored as SHA-256 hashes; the plaintext exists once, at issuance. Tenant identity derives from the token alone — request content can never influence which org's data is read or written.</li>
+    <li><strong>Advisory by default, dispatch by policy.</strong> Farled never blocks writes or merges. Automation is opt-in, rate-limited, blocked on protected paths, requires named human approval for high-risk work, and pauses itself after repeated failures.</li>
+    <li><strong>Deterministic decisions.</strong> The hot path is deterministic code, not an LLM — the same state produces the same signals and the same dispatch decision, so every decision is explainable and auditable after the fact.</li>
+    <li><strong>Provenance built in.</strong> Every assignment traces source signal → policy → approver → PR → outcome. That chain is the audit trail for "which code did agents write, and who approved it."</li>
+  </ul>
+
+  <h3 style="margin-top:2.5rem">Roadmap</h3>
+  <p style="margin-top:.8rem">SOC 2 Type I is planned ahead of the first enterprise deployment; self-hosted and single-tenant options are part of the Enterprise tier. Questions, disclosure reports, or a security review to schedule: <a href="mailto:info@farled.dev?subject=Security">info@farled.dev</a>.</p>
+</section>
+
+<footer class="colophon">
+  <div>
+    <span class="brand-name">Farled</span>
+    <span class="foot-sep">·</span> safe routing for AI-assisted engineering
+    <span class="foot-sep">·</span> <a href="mailto:info@farled.dev">info@farled.dev</a>
+  </div>
+  <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
+</footer>
+
+</div><!-- /sheet -->
+</body>
+</html>
