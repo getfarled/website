@@ -49,7 +49,7 @@
   <div class="hero-copy">
     <p class="etym"><span class="etym-word">farled</span> <span class="etym-phon">/ˈfɑːrˌleːd/</span> — Swedish. <em>A navigable channel; a marked, safe route through water.</em></p>
     <h1>Your agents ship in parallel.<br><em>Give the traffic a chart.</em></h1>
-    <p class="lede">Farled watches humans and coding agents working across branches, worktrees and repos — flags collisions before they become merge conflicts, turns production signals into safe agent tasks, and remembers what actually shipped.</p>
+    <p class="lede">Farled watches humans and coding agents working across branches, worktrees, and repos — flags collisions before they become merge conflicts, turns production signals into safe agent tasks, and remembers what actually shipped.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#get-started">Run the 60-second demo</a>
       <a class="btn btn-ghost" href="#open-core">Open source &amp; Cloud</a>
@@ -137,14 +137,14 @@
     <p>Local reporters and a GitHub connector observe real state: branches, worktrees, dirty files, changed line ranges, symbols, PRs. Deterministic detectors compare it all, live.</p>
     <ul class="feature-list">
       <li><strong>Hunk overlap</strong> — two sessions editing the same lines, flagged in seconds.</li>
-      <li><strong>Symbol overlap</strong> — same Go function touched in <em>different</em> lines? Still flagged, by name.</li>
+      <li><strong>Symbol overlap</strong> — same Go function touched on <em>different</em> lines? Still flagged, by name.</li>
       <li><strong>File overlap</strong> — a local edit vs. a branch someone already pushed.</li>
       <li><strong>PR annotations</strong> — one living comment per pull request: current collisions, then the all-clear.</li>
     </ul>
   </div>
   <div class="motion" id="inbound">
     <h2><em>Inbound</em> — signals becoming safe tasks</h2>
-    <p>Production errors, webhooks and tickets are normalized, deduplicated and mapped to the code they implicate — then routed to agents only under rules you wrote.</p>
+    <p>Production errors, webhooks, and tickets are normalized, deduplicated, and mapped to the code they implicate — then routed to agents only under rules you wrote.</p>
     <ul class="feature-list">
       <li><strong>Sentry intake</strong> — verified webhooks; five repeat alerts become one signal with a count.</li>
       <li><strong>Stack-frame mapping</strong> — frames matched to the repos and paths your team actually touches.</li>
@@ -160,7 +160,7 @@
   <div class="proof-grid">
     <div class="proof-copy">
       <h2>One binary. No services.<br>Sixty seconds to a caught collision.</h2>
-      <p>The demo builds a throwaway repo with two worktrees, edits overlapping lines as a “human” and an “agent”, and shows you the signal — end to end, on your machine.</p>
+      <p>The demo builds a throwaway repo with two worktrees, edits overlapping lines as a “human” and an “agent,” and shows you the signal — end to end, on your machine.</p>
       <p>Agents query the same radar over MCP before they edit: <span class="mono">farled_query_active_work</span> answers with sessions, line ranges, open signals, and plain advice.</p>
     </div>
     <div class="terminal" role="img" aria-label="Terminal output of farled demo collision">
@@ -189,7 +189,7 @@
 <!-- ============ OPEN CORE ============ -->
 <section class="opencore" id="open-core">
   <p class="note-label">NOTE D — OPEN CORE</p>
-  <h2>Open source the edge. <em>Charter the deep water.</em></h2>
+  <h2>Open-source the edge. <em>Charter the deep water.</em></h2>
   <p class="oc-lede">Everything that touches your code and your laptops is Apache-2.0 and inspectable. The hosted, multi-team memory is the business.</p>
   <div class="oc-grid">
     <div class="oc-card oc-oss">
@@ -199,7 +199,7 @@
         <li>Local reporter — metadata-only, with a <span class="mono">--preview</span> mode that shows every byte before it’s sent</li>
         <li>Community server: live radar, three collision detectors, dashboard — localhost, SQLite, single team</li>
         <li>Sentry + GitHub connectors with signature verification</li>
-        <li>Agent MCP server: query, register, accept, report — 7 tools</li>
+        <li>Agent MCP server: query, register, accept, report — seven tools in all</li>
         <li>Manual dispatch: worker registry, assignments, full lifecycle</li>
         <li>Open protocol: 16 versioned schemas any tool can implement</li>
       </ul>
@@ -212,7 +212,7 @@
         <li>Multi-team tenancy — org-scoped everything, hashed tokens; the same open protocol, so OSS reporters just work</li>
         <li>Pull-request annotations that update in place and end in an all-clear</li>
         <li>Agent recommendation with reasons — capability, load, access; deterministic, never a dice roll</li>
-        <li>Approval gates: high-risk work requires a named human, recorded</li>
+        <li>Approval gates: high-risk work requires a named human’s approval, recorded</li>
         <li>Policy autopilot with brakes: rate limits, protected paths, and policies that pause themselves after failures</li>
         <li>Insights: agent success rates, policy effectiveness, task funnel</li>
       </ul>
@@ -225,7 +225,7 @@
 <section class="pricing" id="pricing">
   <p class="note-label">NOTE E — HARBOR DUES</p>
   <h2>Pay per contributor. <em>Agents berth cheaper.</em></h2>
-  <p class="pr-lede">One metric: contributors Farled actually observed this month — humans and agents that reported work or received assignments. Adding more agents is your growth path; we priced it so it's ours too, not a penalty.</p>
+  <p class="pr-lede">One metric: contributors Farled actually observed this month — humans and agents that reported work or received assignments. Adding more agents is your growth path; we priced it so it’s ours too, not a penalty.</p>
   <div class="price-grid">
     <div class="price-card">
       <p class="oc-tag"><span class="buoy-dot green"></span>Community</p>
@@ -284,7 +284,7 @@
         <p>File contents, diffs, prompts, chat logs, commit messages, secrets. <strong>No field in the wire protocol can carry them</strong> — verified by tests that plant a canary secret and audit every transmitted byte.</p>
       </div>
     </div>
-    <p class="caution-foot">Built-in exclusions for <span class="mono">.env</span>, keys and secret paths cannot be disabled. Run <span class="mono">farled report --preview</span> to see exactly what would leave the machine — nothing is sent.</p>
+    <p class="caution-foot">Built-in exclusions for <span class="mono">.env</span>, keys, and secret paths cannot be disabled. Run <span class="mono">farled report --preview</span> to see exactly what would leave the machine — nothing is sent.</p>
   </div>
 </section>
 
@@ -292,7 +292,7 @@
 <section class="getstarted" id="get-started">
   <p class="note-label">NOTE F — GETTING STARTED</p>
   <h2>Chart your first passage</h2>
-  <p class="gs-lede">Three routes, depending on how many of you are sailing. Every path starts the same way:</p>
+  <p class="gs-lede">Three routes, depending on how many of you are sailing. Every route starts the same way:</p>
   <pre class="cmd cmd-wide"><code>go install github.com/getfarled/farled/cmd/farled@latest</code></pre>
 
   <div class="paths">
@@ -313,7 +313,7 @@ farled report         # in each repo / worktree</code></pre>
       <div class="path-info">
         <p class="path-tag"><span class="buoy-dot green"></span>Team · self-hosted OSS</p>
         <h3>A few of you, your own server</h3>
-        <p>One machine hosts the radar; everyone joins it in one command.</p>
+        <p>One machine hosts the radar; everyone else joins with one command.</p>
       </div>
       <div class="path-how">
         <pre class="cmd"><code># host
@@ -322,7 +322,7 @@ farled serve --addr &lt;private-ip&gt;:4711
 # every laptop (humans and agents alike)
 farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
         <div class="path-caution">
-          <strong>Know the trade:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal, office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens and isolation? That's Cloud, below.
+          <strong>Know the trade-off:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal; office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens, and isolation? That’s Cloud, below.
         </div>
       </div>
     </article>
@@ -332,7 +332,7 @@ farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
         <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
         <h3>Authenticated, org-isolated, annotated</h3>
         <p>An admin creates the org and hands out tokens; laptops join the same way.</p>
-        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates and policy autopilot.</p>
+        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates, and policy autopilot.</p>
       </div>
       <div class="path-how">
         <pre class="cmd"><code># admin, once
@@ -347,12 +347,12 @@ farled quickconnect https://farled.acme.dev --token fld_…</code></pre>
 
   <div class="agents-any">
     <h3>Then give <em>any</em> agent the chart</h3>
-    <p>Farled speaks <a href="https://modelcontextprotocol.io">MCP</a>, the open standard — so this works with Claude Code, Codex, Cursor, Gemini CLI, or anything else that speaks MCP. <span class="mono">quickconnect</span> prints your exact snippet; the universal form is:</p>
+    <p>Farled speaks <a href="https://modelcontextprotocol.io">MCP</a>, the open standard — so this works with Claude Code, Codex, Cursor, Gemini CLI, or anything else that supports it. <span class="mono">quickconnect</span> prints your exact snippet; the universal form is:</p>
     <pre class="cmd cmd-wide"><code>{ "mcpServers": { "farled": { "command": "farled", "args": ["mcp"] } } }</code></pre>
-    <p class="path-note">Agents get <span class="mono">farled_query_active_work</span> — "who else is touching this file?" — plus the worker tools to receive, accept and report dispatched tasks.</p>
+    <p class="path-note">Agents get <span class="mono">farled_query_active_work</span> — “who else is touching this file?” — plus the worker tools to receive, accept, and report dispatched tasks.</p>
   </div>
 
-  <p class="gs-foot">Repositories open at launch — <a href="mailto:info@farled.dev?subject=Farled%20early%20access">ask for early access</a> or a design-partner seat. Questions? <a href="mailto:info@farled.dev">info@farled.dev</a></p>
+  <p class="gs-foot">The repositories open at launch — until then, <a href="mailto:info@farled.dev?subject=Farled%20early%20access">ask for early access</a> or a design-partner seat. Questions? <a href="mailto:info@farled.dev">info@farled.dev</a></p>
 </section>
 
 <footer class="colophon">

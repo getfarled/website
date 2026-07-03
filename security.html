@@ -40,7 +40,7 @@
 <section class="privacy">
   <p class="note-label">SECURITY — FOR THE PERSON WHO HAS TO SAY YES</p>
   <h2>Everything a security review asks. <em>Answered up front.</em></h2>
-  <p class="pr-lede">Farled sits close to your code, so it is built to be inspected. The entire edge — everything that runs on engineers' machines — is Apache-2.0 open source. This page is the short version of what an auditor finds.</p>
+  <p class="pr-lede">Farled sits close to your code, so it is built to be inspected. The entire edge — everything that runs on engineers’ machines — is Apache-2.0 open source. This page is the short version of what an auditor finds.</p>
 
   <h3 style="margin-top:2.5rem">Data classes</h3>
   <div class="cols2" style="margin-top:1rem">
@@ -57,16 +57,16 @@
 
   <h3 style="margin-top:2.5rem">Controls</h3>
   <ul style="margin-top:1rem; padding-left:1.2rem">
-    <li><strong>Inspectable reporter.</strong> <span class="mono">farled report --preview</span> prints every payload that would be sent and transmits nothing. Built-in exclusions for <span class="mono">.env</span>, keys and secret paths cannot be disabled.</li>
-    <li><strong>Verified webhooks.</strong> Every inbound connector authenticates in its provider's native scheme — GitHub <span class="mono">X-Hub-Signature-256</span>, Sentry and Linear HMAC, PagerDuty <span class="mono">v1=</span> signatures, Alertmanager bearer secrets. Unsigned traffic is rejected before parsing.</li>
-    <li><strong>Hashed tokens, org-scoped everything.</strong> API tokens are stored as SHA-256 hashes; the plaintext exists once, at issuance. Tenant identity derives from the token alone — request content can never influence which org's data is read or written.</li>
-    <li><strong>Advisory by default, dispatch by policy.</strong> Farled never blocks writes or merges. Automation is opt-in, rate-limited, blocked on protected paths, requires named human approval for high-risk work, and pauses itself after repeated failures.</li>
-    <li><strong>Deterministic decisions.</strong> The hot path is deterministic code, not an LLM — the same state produces the same signals and the same dispatch decision, so every decision is explainable and auditable after the fact.</li>
-    <li><strong>Provenance built in.</strong> Every assignment traces source signal → policy → approver → PR → outcome. That chain is the audit trail for "which code did agents write, and who approved it."</li>
+    <li><strong>Inspectable reporter.</strong> <span class="mono">farled report --preview</span> prints every payload that would be sent and transmits nothing. Built-in exclusions for <span class="mono">.env</span>, keys, and secret paths cannot be disabled.</li>
+    <li><strong>Verified webhooks.</strong> Every inbound connector authenticates using its provider’s native scheme — GitHub <span class="mono">X-Hub-Signature-256</span>, Sentry and Linear HMAC, PagerDuty <span class="mono">v1=</span> signatures, Alertmanager bearer secrets. Unsigned traffic is rejected before parsing.</li>
+    <li><strong>Hashed tokens, org-scoped everything.</strong> API tokens are stored as SHA-256 hashes; the plaintext exists once, at issuance. Tenant identity derives from the token alone — request content can never influence which org’s data is read or written.</li>
+    <li><strong>Advisory by default, dispatch by policy.</strong> Farled never blocks writes or merges. Automation is opt-in, rate-limited, and blocked on protected paths; it requires named human approval for high-risk work and pauses itself after repeated failures.</li>
+    <li><strong>Deterministic decisions.</strong> The hot path is deterministic code, not an LLM — the same state produces the same signals and the same dispatch decision, so every one is explainable and auditable after the fact.</li>
+    <li><strong>Provenance built in.</strong> Every assignment traces source signal → policy → approver → PR → outcome. That chain is the audit trail for “which code did agents write, and who approved it?”</li>
   </ul>
 
   <h3 style="margin-top:2.5rem">Roadmap</h3>
-  <p style="margin-top:.8rem">SOC 2 Type I is planned ahead of the first enterprise deployment; self-hosted and single-tenant options are part of the Enterprise tier. Questions, disclosure reports, or a security review to schedule: <a href="mailto:info@farled.dev?subject=Security">info@farled.dev</a>.</p>
+  <p style="margin-top:.8rem">SOC 2 Type I is planned ahead of the first enterprise deployment; self-hosted and single-tenant options are part of the Enterprise tier. For questions, vulnerability disclosures, or to schedule a security review: <a href="mailto:info@farled.dev?subject=Security">info@farled.dev</a>.</p>
 </section>
 
 <footer class="colophon">
