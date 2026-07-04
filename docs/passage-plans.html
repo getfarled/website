@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passage plans in detail — Farled</title>
+<meta name="description" content="How Farled passage plans work: filing a footprint, the deterministic traffic advisory, drift reconciliation, lifecycle and live status, and wiring agents to file plans.">
+<link rel="canonical" href="https://farled.dev/docs/passage-plans">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .doc table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0 1.8rem; }
+  .doc th, .doc td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--shoal); vertical-align: top; }
+  .doc th { font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; color: var(--ink-soft); }
+  .doc h3 { font-family: var(--display); font-weight: 500; font-size: 1.4rem; margin: 2.4rem 0 .6rem; }
+  .doc p, .doc li { max-width: 66ch; color: var(--ink-soft); }
+  .doc li { margin: .35rem 0; }
+  .doc strong { color: var(--ink); }
+  .doc pre { background: var(--ink); color: var(--deepwater); border-radius: 3px; padding: 1rem 1.2rem; overflow-x: auto; font-family: var(--mono); font-size: .82rem; line-height: 1.5; margin: 1rem 0 1.8rem; }
+  .doc .lifecycle { background: var(--deepwater); color: var(--ink); border: 1.5px solid var(--ink); }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cg fill='none' stroke='%2312303F' stroke-width='86' stroke-linecap='round'%3E%3Cpath d='M164 92 V 330'/%3E%3Cpath d='M164 122 C 252 122 288 104 392 104'/%3E%3Cpath d='M164 244 C 244 244 272 228 354 228'/%3E%3C/g%3E%3Crect x='20' y='340' width='120' height='120' fill='%23C7401F'/%3E%3Cpath d='M290 460 h 136 l -68 -116 z' fill='%230E7C4A'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="sheet">
+
+<header class="masthead">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round">
+        <path d="M164 92 V 336"/>
+        <path d="M164 116 C 252 116 288 98 386 98"/>
+        <path d="M164 238 C 244 238 272 222 348 222"/>
+        <path d="M164 336 V 486" stroke-dasharray="30 42" stroke-width="46"/>
+      </g>
+      <rect x="42" y="356" width="76" height="76" fill="var(--port)"/>
+      <path d="M312 438 h 92 l -46 -80 z" fill="var(--starboard)"/>
+    </svg>
+    <span class="brand-name">Farled</span>
+  </div>
+  <nav class="topnav" aria-label="Main">
+    <a href="/#plans">Overview</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/security">Security</a>
+    <a class="nav-cta" href="/#get-started">Get started</a>
+  </nav>
+</header>
+
+<section class="doc">
+  <p class="note-label">PILOT BOOK — PASSAGE PLANS IN DETAIL</p>
+  <h2>File before departure. <em>Sail informed.</em></h2>
+  <p>Radar tells you about collisions while they happen. Passage plans prevent them: before starting to code, an agent (or human) files the footprint it intends to change and gets a traffic advisory back — <strong>before any code is written</strong>. A plan is an advisory reservation, never a lock: anyone can still edit anything; they just do it informed.</p>
+
+  <h3>The lifecycle</h3>
+  <pre class="lifecycle"><code>                ┌──────────── expires_at (24h TTL) ───────────┐
+                ▼                                              │
+filed ──edits inside footprint──▶ active ◀──rejoin route──┐    │
+  │                                 │                     │    │
+  │                          edits outside                │    │
+  │                                 ▼                     │    │
+  └──edits outside───────────▶ drifted ───────────────────┘    │
+                                                               │
+  completed  ← session closes / assignment completes /         │
+  withdrawn  ← farled_complete_plan / assignment fails         │
+  expired    ← TTL lapses ─────────────────────────────────────┘</code></pre>
+  <table>
+    <tr><th>Status</th><th>Meaning</th><th>Who sets it</th></tr>
+    <tr><td><span class="mono">filed</span></td><td>declared, no work observed yet</td><td>filing</td></tr>
+    <tr><td><span class="mono">active</span></td><td>observed edits match the footprint — the plan is confirmed by reality</td><td>server, on change reports</td></tr>
+    <tr><td><span class="mono">drifted</span></td><td>observed edits left the footprint; a <span class="mono">plan_drift</span> signal is open</td><td>server, on change reports</td></tr>
+    <tr><td><span class="mono">completed</span></td><td>work shipped</td><td>session close, assignment completion, or <span class="mono">farled_complete_plan</span></td></tr>
+    <tr><td><span class="mono">withdrawn</span></td><td>abandoned</td><td>explicit call, or assignment failure (Cloud)</td></tr>
+    <tr><td><span class="mono">expired</span></td><td>24h TTL lapsed — the backstop for anything that dies silently</td><td>server, lazily</td></tr>
+  </table>
+  <p>Live status flows from three independent sources, in trust order: <strong>observed edits</strong> (reconciled on every change report), <strong>lifecycle events</strong> (session close; on Cloud, assignments reaching terminal states), and <strong>explicit calls</strong> — with the TTL as the final backstop. A dead laptop can never reserve water for more than 24 hours.</p>
+
+  <h3>Filing a plan</h3>
+  <p>At the end of the planning phase, call the MCP tool (or <span class="mono">POST /v1/work-plans</span> with the same body):</p>
+  <pre><code>farled_file_plan {
+  "repository_id":  "github.com/acme/app",
+  "actor_id":       "my-agent",
+  "intended_paths": ["src/checkout/**", "src/lib/currency.ts"],
+  "summary":        "Fix checkout summary TypeError + regression test",
+  "confidence":     "medium",
+  "work_session_id": "&lt;reporter session id, if one is running&gt;"
+}</code></pre>
+  <p>Declare the <strong>narrowest footprint you honestly can</strong> — over-broad globs generate advisories against you and dilute everyone's traffic picture. Passing <span class="mono">work_session_id</span> links the plan to your reporter session, which enables drift reconciliation and automatic completion when the session closes.</p>
+
+  <h3>The advisory</h3>
+  <p>The response carries a deterministic recommendation — same state, same answer, no model in the loop:</p>
+  <table>
+    <tr><th>Recommendation</th><th>Meaning</th><th>Rule</th></tr>
+    <tr><td><span class="mono">clear</span></td><td>no live plans or active edits on this footprint</td><td>—</td></tr>
+    <tr><td><span class="mono">sequence_after</span></td><td>another live plan overlaps yours</td><td>earlier filing holds the water; the newcomer sequences after it or rescopes</td></tr>
+    <tr><td><span class="mono">coordinate</span></td><td>a live session is <em>already editing</em> inside your footprint</td><td>observed work outranks declared work — talk first</td></tr>
+  </table>
+  <p>Overlap rules: plan-vs-plan compares glob literal prefixes (<span class="mono">src/checkout/**</span> overlaps <span class="mono">src/**</span>; <span class="mono">src/a/**</span> does not overlap <span class="mono">src/b/**</span>) — deliberately erring toward warning. Plan-vs-observed matches your globs against real changed paths. Your own plans never conflict with you.</p>
+
+  <h3>Drift</h3>
+  <p>On every change report, the server reconciles the session's observed edits against its filed plan:</p>
+  <ul>
+    <li>edits <strong>inside</strong> the footprint confirm the plan → <span class="mono">active</span>;</li>
+    <li>any edit <strong>outside</strong> marks it <span class="mono">drifted</span> and opens an advisory <span class="mono">plan_drift</span> signal naming the stray paths;</li>
+    <li>rejoining the route resolves the signal and re-confirms the plan.</li>
+  </ul>
+  <p>Drift never blocks anything. It flags scope creep and tells other traffic that this plan's reservation no longer describes reality.</p>
+
+  <h3>Farled Cloud extras</h3>
+  <ul>
+    <li><strong>Auto-plans at dispatch</strong> — assigning a task files a plan from the task's <span class="mono">affected_paths</span> automatically. Dispatched work reserves its water with zero agent effort, and the assign response carries the advisory as <span class="mono">plan_advisory</span>.</li>
+    <li>Terminal assignment states release the plan: completed → <span class="mono">completed</span>, failed/cancelled → <span class="mono">withdrawn</span>.</li>
+  </ul>
+
+  <h3>Wiring agents to file plans</h3>
+  <p>Add one paragraph to your repo's agent instructions (<span class="mono">CLAUDE.md</span>, <span class="mono">AGENTS.md</span>, or equivalent):</p>
+  <pre><code>At the end of your planning phase — before writing any code — file a
+passage plan with farled_file_plan declaring the paths you intend to
+change, and follow its advisory. When your work ships or you abandon
+it, call farled_complete_plan.</code></pre>
+  <p>That's the entire integration. Plans are optional everywhere: unplanned work is still observed, detected, and advised exactly as before.</p>
+
+  <h3>API summary</h3>
+  <table>
+    <tr><th>Surface</th><th>Call</th></tr>
+    <tr><td>MCP</td><td><span class="mono">farled_file_plan</span> · <span class="mono">farled_list_plans</span> · <span class="mono">farled_complete_plan</span></td></tr>
+    <tr><td>HTTP</td><td><span class="mono">POST /v1/work-plans</span> · <span class="mono">GET /v1/work-plans?repository_id=</span> · <span class="mono">POST /v1/work-plans/{id}/status</span></td></tr>
+    <tr><td>Protocol</td><td><span class="mono">work_plan.schema.json</span> (farled/v1, additive) · Signal type <span class="mono">plan_drift</span></td></tr>
+  </table>
+</section>
+
+<footer class="colophon">
+  <div>
+    <span class="brand-name">Farled</span>
+    <span class="foot-sep">·</span> safe routing for AI-assisted engineering
+    <span class="foot-sep">·</span> <a href="/security">Security</a>
+    <span class="foot-sep">·</span> <a href="mailto:info@farled.dev">info@farled.dev</a>
+  </div>
+  <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
+</footer>
+
+</div><!-- /sheet -->
+</body>
+</html>
