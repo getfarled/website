@@ -213,6 +213,8 @@ section p { max-width: var(--measure); }
 .oc-cloud .oc-cta a { border-bottom-color: var(--gold); }
 .oc-cta a:hover { color: var(--port); }
 
+.badge-cloud { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; color: var(--gold); border: 1px solid var(--gold); border-radius: 999px; padding: .02rem .45rem; vertical-align: middle; }
+
 /* ---- pricing ---- */
 .pr-lede { max-width: 44rem; color: var(--ink-soft); margin-top: .8rem; }
 .price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; margin-top: 2rem; }

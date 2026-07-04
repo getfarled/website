@@ -37,6 +37,7 @@
   <nav class="topnav" aria-label="Main">
     <a href="#underway">Underway</a>
     <a href="#inbound">Inbound</a>
+    <a href="#plans">Plans</a>
     <a href="#open-core">Open&nbsp;core</a>
     <a href="#pricing">Pricing</a>
     <a href="#privacy">Privacy</a>
@@ -154,9 +155,48 @@
   </div>
 </section>
 
+<!-- ============ PASSAGE PLANS ============ -->
+<section class="proof" id="plans">
+  <p class="note-label">NOTE C — PASSAGE PLANS</p>
+  <div class="proof-grid">
+    <div class="proof-copy">
+      <h2><em>Passage plans</em> — deconflicted before departure</h2>
+      <p>Radar tells you about collisions as they happen. Plans prevent them: at the end of its planning phase, an agent files the footprint it intends to change — path globs, one-line summary — and gets a traffic advisory back <em>before writing any code</em>.</p>
+      <ul class="feature-list">
+        <li><strong>File → advisory</strong> — <span class="mono">farled_file_plan</span> answers <em>clear</em>, <em>sequence&nbsp;after</em> (someone filed that water first), or <em>coordinate</em> (someone is already editing inside it).</li>
+        <li><strong>Never a lock</strong> — a plan is a reservation on the chart, not a lease on the code. Anyone can still sail anywhere; they just do it informed.</li>
+        <li><strong>Drift detection</strong> — observed edits are reconciled against the filed route. Leave your footprint and a <span class="mono">plan_drift</span> signal flags the scope creep; rejoin it and the signal clears.</li>
+        <li><strong>Auto-plans at dispatch</strong> <span class="badge-cloud">Cloud</span> — an assigned task reserves its own footprint the moment it’s dispatched, with zero agent effort.</li>
+      </ul>
+    </div>
+    <div class="terminal" role="img" aria-label="Terminal output of an agent filing a passage plan and receiving a traffic advisory">
+      <div class="term-bar"><span></span><span></span><span></span><em>agent planning phase</em></div>
+      <pre><code>🤖 farled_file_plan
+   paths:   ["src/checkout/**"]
+   summary: "Fix checkout summary TypeError"
+
+<b class="warn">⚑ ADVISORY — sequence_after</b>
+  Plan plan-a41f… filed this footprint first
+  (bugbot · “Refactor checkout totals”).
+  Sequence after it or rescope the
+  overlapping globs. <b>Nothing is locked.</b>
+
+🤖 agent rescopes to src/checkout/summary.go
+   → <b class="ok">✓ route is clear — plan filed</b>
+
+… later, mid-work …
+<b class="warn">⚠ PLAN DRIFT</b>
+  1 path outside the declared footprint:
+  billing/invoice.go. Advisory only —
+  the plan re-confirms when you rejoin
+  your route.</code></pre>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TERMINAL PROOF ============ -->
 <section class="proof">
-  <p class="note-label">NOTE C — SEE IT RUN</p>
+  <p class="note-label">NOTE D — SEE IT RUN</p>
   <div class="proof-grid">
     <div class="proof-copy">
       <h2>One binary. No services.<br>Sixty seconds to a caught collision.</h2>
@@ -188,7 +228,7 @@
 
 <!-- ============ OPEN CORE ============ -->
 <section class="opencore" id="open-core">
-  <p class="note-label">NOTE D — OPEN CORE</p>
+  <p class="note-label">NOTE E — OPEN CORE</p>
   <h2>Open-source the edge. <em>Charter the deep water.</em></h2>
   <p class="oc-lede">Everything that touches your code and your laptops is Apache-2.0 and inspectable. The hosted, multi-team memory is the business.</p>
   <div class="oc-grid">
@@ -200,6 +240,7 @@
         <li>Community server: live radar, three collision detectors, dashboard — localhost, SQLite, single team</li>
         <li>Sentry + GitHub connectors with signature verification</li>
         <li>Agent MCP server: query, register, accept, report, plan — ten tools in all</li>
+        <li>Passage plans: declare a footprint, get a traffic advisory before coding; drift detection keeps plans honest</li>
         <li>Manual dispatch: worker registry, assignments, full lifecycle</li>
         <li>Open protocol: 16 versioned schemas any tool can implement</li>
       </ul>
@@ -214,6 +255,7 @@
         <li>Agent recommendation with reasons — capability, load, access; deterministic, never a dice roll</li>
         <li>Approval gates: high-risk work requires a named human’s approval, recorded</li>
         <li>Policy autopilot with brakes: rate limits, protected paths, and policies that pause themselves after failures</li>
+        <li>Auto-plans at dispatch: assigned tasks reserve their footprint automatically — zero agent effort</li>
         <li>Insights: agent success rates, policy effectiveness, task funnel</li>
       </ul>
       <p class="oc-cta"><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">Become a design partner →</a></p>
@@ -223,7 +265,7 @@
 
 <!-- ============ PRICING ============ -->
 <section class="pricing" id="pricing">
-  <p class="note-label">NOTE E — HARBOR DUES</p>
+  <p class="note-label">NOTE F — HARBOR DUES</p>
   <h2>Pay per contributor. <em>Agents berth cheaper.</em></h2>
   <p class="pr-lede">One metric: contributors Farled actually observed this month — humans and agents that reported work or received assignments. Adding more agents is your growth path; we priced it so it’s ours too, not a penalty.</p>
   <div class="price-grid">
@@ -290,7 +332,7 @@
 
 <!-- ============ GETTING STARTED ============ -->
 <section class="getstarted" id="get-started">
-  <p class="note-label">NOTE F — GETTING STARTED</p>
+  <p class="note-label">NOTE G — GETTING STARTED</p>
   <h2>Chart your first passage</h2>
   <p class="gs-lede">Three routes, depending on how many of you are sailing. Every route starts the same way:</p>
   <pre class="cmd cmd-wide"><code>go install github.com/getfarled/farled/cmd/farled@latest</code></pre>
