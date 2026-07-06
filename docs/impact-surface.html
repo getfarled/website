@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The impact-surface skill — Farled</title>
+<meta name="description" content="A shared discipline for agents and humans: derive the files a task will change, file it as a Farled passage plan before coding, and keep the plan honest.">
+<link rel="canonical" href="https://farled.dev/docs/impact-surface">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .doc table { border-collapse: collapse; width: 100%; font-size: .92rem; margin: 1rem 0 1.8rem; }
+  .doc th, .doc td { text-align: left; padding: .5rem .7rem; border-bottom: 1px solid var(--shoal); vertical-align: top; }
+  .doc th { font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; color: var(--ink-soft); }
+  .doc h3 { font-family: var(--display); font-weight: 500; font-size: 1.4rem; margin: 2.4rem 0 .6rem; }
+  .doc p, .doc li { max-width: 66ch; color: var(--ink-soft); }
+  .doc li { margin: .35rem 0; }
+  .doc strong { color: var(--ink); }
+  .doc pre { background: var(--ink); color: var(--deepwater); border-radius: 3px; padding: 1rem 1.2rem; overflow-x: auto; font-family: var(--mono); font-size: .82rem; line-height: 1.5; margin: 1rem 0 1.8rem; }
+  .doc .star { color: var(--port); }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cg fill='none' stroke='%2312303F' stroke-width='86' stroke-linecap='round'%3E%3Cpath d='M164 92 V 330'/%3E%3Cpath d='M164 122 C 252 122 288 104 392 104'/%3E%3Cpath d='M164 244 C 244 244 272 228 354 228'/%3E%3C/g%3E%3Crect x='20' y='340' width='120' height='120' fill='%23C7401F'/%3E%3Cpath d='M290 460 h 136 l -68 -116 z' fill='%230E7C4A'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="sheet">
+
+<header class="masthead">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round">
+        <path d="M164 92 V 336"/>
+        <path d="M164 116 C 252 116 288 98 386 98"/>
+        <path d="M164 238 C 244 238 272 222 348 222"/>
+        <path d="M164 336 V 486" stroke-dasharray="30 42" stroke-width="46"/>
+      </g>
+      <rect x="42" y="356" width="76" height="76" fill="var(--port)"/>
+      <path d="M312 438 h 92 l -46 -80 z" fill="var(--starboard)"/>
+    </svg>
+    <span class="brand-name">Farled</span>
+  </div>
+  <nav class="topnav" aria-label="Main">
+    <a href="/docs/passage-plans">Passage plans</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/security">Security</a>
+    <a class="nav-cta" href="/#get-started">Get started</a>
+  </nav>
+</header>
+
+<section class="doc">
+  <p class="note-label">PILOT BOOK — THE IMPACT-SURFACE SKILL</p>
+  <h2>Every plan has a footprint. <em>Derive it the same way, every time.</em></h2>
+  <p>A <a href="/docs/passage-plans">passage plan</a> is only as good as the footprint it declares. This skill is the shared discipline for deriving that footprint — from a PRD, spec, ticket, or plan-mode output — so every agent and human on a team declares work the same way and the traffic advisories stay comparable. It ships as <span class="mono">skills/impact-surface/SKILL.md</span> in the Farled repo: agents whose harness loads skills install it; everyone else pastes it into <span class="mono">AGENTS.md</span> or their system prompt. Dev-agnostic by construction.</p>
+
+  <h3>Step 1 — Derive the impact surface</h3>
+  <p>Walk the categories; for each, ask <em>does this work touch it?</em> Most tasks hit three or four — a task that hits all of them should probably be split.</p>
+  <table>
+    <tr><th>Category</th><th>Typical paths</th><th>Often forgotten?</th></tr>
+    <tr><td>Primary code</td><td>the feature's own packages/modules</td><td>—</td></tr>
+    <tr><td>Shared contracts</td><td>types, schemas, protocol files, API clients</td><td><span class="star">★</span> the #1 collision source</td></tr>
+    <tr><td>Data model</td><td>migrations, ORM models, seeds</td><td><span class="star">★</span> ordering conflicts</td></tr>
+    <tr><td>API surface</td><td>routes, handlers, OpenAPI specs</td><td></td></tr>
+    <tr><td>Tests</td><td>unit/integration files beside the code</td><td></td></tr>
+    <tr><td>Localization</td><td>locale/message files</td><td><span class="star">★</span> every-PR files — expect overlap</td></tr>
+    <tr><td>Docs &amp; records</td><td>README, docs pages, ADRs, changelogs</td><td></td></tr>
+    <tr><td>Config</td><td>CI, build, env, feature flags</td><td><span class="star">★</span> high blast radius</td></tr>
+  </table>
+  <ul>
+    <li><strong>Only what you will edit.</strong> Files read for context are not footprint — reading collides with nothing.</li>
+    <li><strong>Narrowest honest globs.</strong> <span class="mono">src/checkout/**</span> if you own the area; the exact file if you touch one. Never <span class="mono">src/**</span> — over-broad plans generate advisories against you.</li>
+    <li><strong>Name symbols when known</strong> — symbol advisories are sharper than path advisories.</li>
+    <li><strong>Set confidence honestly:</strong> high = spec'd, medium = mostly known, low = exploratory. Low is fine; lying isn't.</li>
+  </ul>
+
+  <h3>Step 2 — File it</h3>
+  <pre><code>farled_file_plan {
+  "intended_paths":  ["src/checkout/**", "src/lib/currency.ts"],
+  "intended_symbols": ["renderSummary"],
+  "summary":         "ISO-460: per-org MFA policy",
+  "confidence":      "high"
+}</code></pre>
+
+  <h3>Step 3 — Act on the advisory</h3>
+  <table>
+    <tr><th>Advisory</th><th>Your move</th></tr>
+    <tr><td><span class="mono">clear</span></td><td>Proceed.</td></tr>
+    <tr><td><span class="mono">sequence_after</span></td><td>Someone filed overlapping water first. Rescope out of the overlap, wait for their plan to complete, or coordinate explicitly — never silently proceed into it.</td></tr>
+    <tr><td><span class="mono">coordinate</span></td><td>Someone is <em>already editing</em> inside your footprint. Check <span class="mono">farled_query_active_work</span> for the concrete paths and talk first.</td></tr>
+  </table>
+
+  <h3>Step 4 — Keep the plan honest</h3>
+  <ul>
+    <li><strong>Scope grew?</strong> Withdraw and refile the real footprint — a <span class="mono">plan_drift</span> signal means other traffic can no longer trust your reservation.</li>
+    <li><strong>Shipped?</strong> Complete it (automatic when your reporter session closes or your dispatched assignment completes).</li>
+    <li><strong>Abandoned?</strong> Withdraw. Free the water.</li>
+  </ul>
+
+  <h3>For PRD authors</h3>
+  <p>Write your PRD's "Files to edit" section as <strong>paths and globs, one per line</strong>. An agent implementing the PRD derives its footprint by copying that section — the PRD becomes machine-readable intent for free, and reviewers can sanity-check the blast radius before a line of code exists.</p>
+</section>
+
+<footer class="colophon">
+  <div>
+    <span class="brand-name">Farled</span>
+    <span class="foot-sep">·</span> safe routing for AI-assisted engineering
+    <span class="foot-sep">·</span> <a href="/security">Security</a>
+    <span class="foot-sep">·</span> <a href="mailto:info@farled.dev">info@farled.dev</a>
+  </div>
+  <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
+</footer>
+
+</div><!-- /sheet -->
+</body>
+</html>
