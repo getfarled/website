@@ -254,6 +254,7 @@
       <h3>Farled Cloud</h3>
       <ul>
         <li>Multi-team tenancy — org-scoped everything, hashed tokens; the same open protocol, so OSS reporters just work</li>
+        <li>Harbor report: scan recent pull requests and see the collisions Farled would have caught before installing laptop reporters</li>
         <li>Pull-request annotations that update in place and end in an all-clear</li>
         <li>Agent recommendation with reasons — capability, load, access; deterministic, never a dice roll</li>
         <li>Approval gates: high-risk work requires a named human’s approval, recorded</li>
@@ -261,7 +262,7 @@
         <li>Auto-plans at dispatch: assigned tasks reserve their footprint automatically — zero agent effort</li>
         <li>Insights: agent success rates, policy effectiveness, task funnel</li>
       </ul>
-      <p class="oc-cta"><!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">Become a design partner →</a><!--email_on--></p>
+      <p class="oc-cta"><a href="https://cloud.farled.dev/signup">Start with Harbor →</a></p>
     </div>
   </div>
 </section>
@@ -290,13 +291,14 @@
       <p class="price price-sub"><b>$5</b><span>per agent / month · 14-day trial</span></p>
       <ul>
         <li>Hosted multi-team memory, org-scoped tokens</li>
+        <li>Harbor report over your recent PR history</li>
         <li>Approval inbox &amp; hosted dashboard</li>
         <li>PR annotations that end in an all-clear</li>
         <li>Linear, PagerDuty &amp; Alertmanager connectors</li>
         <li>Policy autopilot with brakes; insights &amp; funnel</li>
         <li>90-day history</li>
       </ul>
-      <p class="oc-cta"><!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Cloud%20trial">Start a trial →</a><!--email_on--></p>
+      <p class="oc-cta"><a href="https://cloud.farled.dev/signup">Start a trial →</a></p>
     </div>
     <div class="price-card">
       <p class="oc-tag"><span class="buoy-dot"></span>Enterprise</p>
@@ -376,13 +378,15 @@ farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
       <div class="path-info">
         <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
         <h3>Authenticated, org-isolated, annotated</h3>
-        <p>An admin creates the org and hands out tokens; laptops join the same way.</p>
-        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates, and policy autopilot.</p>
+        <p>Start with a Harbor report over recent pull requests, then add reporters when you want live radar.</p>
+        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates, policy autopilot, value ledger, and AI work provenance.</p>
       </div>
       <div class="path-how">
-        <pre class="cmd"><code># admin, once
-farled-cloud org create acme "Acme"
-farled-cloud token issue acme "henrik-laptop"
+        <pre class="cmd"><code># browser, once
+https://cloud.farled.dev/signup
+
+# admin, once integration is ready
+farled-cloud integration set acme github.com/acme/app acme/app ghp_…
 
 # every laptop
 farled quickconnect https://farled.acme.dev --token fld_…</code></pre>
