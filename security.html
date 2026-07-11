@@ -62,7 +62,7 @@
     <li><strong>Hashed tokens, org-scoped everything.</strong> API tokens are stored as SHA-256 hashes; the plaintext exists once, at issuance. Tenant identity derives from the token alone — request content can never influence which org’s data is read or written.</li>
     <li><strong>Advisory by default, dispatch by policy.</strong> Farled never blocks writes or merges. Automation is opt-in, rate-limited, and blocked on protected paths; it requires named human approval for high-risk work and pauses itself after repeated failures.</li>
     <li><strong>Deterministic decisions.</strong> The hot path is deterministic code, not an LLM — the same state produces the same signals and the same dispatch decision, so every one is explainable and auditable after the fact.</li>
-    <li><strong>Provenance built in.</strong> Every assignment traces source signal → policy → approver → PR → outcome. That chain is the audit trail for “which code did agents write, and who approved it?”</li>
+    <li><strong>Provenance built in.</strong> Every assignment traces source signal → policy → approver → PR → outcome. That chain is the audit trail for “which sessions were agent-driven, under what policy, and who approved them?” — an agent-attributed session record, not a line-by-line code-authorship count.</li>
   </ul>
 
   <h3 style="margin-top:2.5rem">Roadmap</h3>
