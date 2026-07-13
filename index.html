@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Farled — safe routing for AI-assisted engineering</title>
-<meta name="description" content="Farled watches humans and coding agents working in parallel, warns about collisions early before they become merge conflicts, routes incoming work safely, and records and measures what actually ships.">
+<title>Farled — see overlapping work before it becomes a merge problem</title>
+<meta name="description" content="Farled shows when developers and coding agents are changing the same code, then warns the team while there is still time to coordinate.">
 <link rel="canonical" href="https://farled.dev/">
-<meta property="og:title" content="Farled — safe routing for AI-assisted engineering">
-<meta property="og:description" content="See who — human or agent — is touching what, catch collisions before merge conflicts, and route production signals to agents safely.">
+<meta property="og:title" content="Farled — traffic control for parallel coding">
+<meta property="og:description" content="See overlapping work before it becomes a merge problem. Farled gives people and coding agents one shared view of work in motion.">
 <meta property="og:url" content="https://farled.dev/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
@@ -17,11 +17,11 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cg fill='none' stroke='%2312303F' stroke-width='86' stroke-linecap='round'%3E%3Cpath d='M164 92 V 330'/%3E%3Cpath d='M164 122 C 252 122 288 104 392 104'/%3E%3Cpath d='M164 244 C 244 244 272 228 354 228'/%3E%3C/g%3E%3Crect x='20' y='340' width='120' height='120' fill='%23C7401F'/%3E%3Cpath d='M290 460 h 136 l -68 -116 z' fill='%230E7C4A'/%3E%3C/svg%3E">
 </head>
-<body>
+<body class="landing-page">
 <div class="sheet">
 
 <header class="masthead">
-  <div class="brand">
+  <a class="brand brand-home" href="/" aria-label="Farled home">
     <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
       <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round">
         <path d="M164 92 V 336"/>
@@ -33,403 +33,345 @@
       <path d="M312 438 h 92 l -46 -80 z" fill="var(--starboard)"/>
     </svg>
     <span class="brand-name">Farled</span>
-  </div>
+  </a>
   <nav class="topnav" aria-label="Main">
-    <a href="#underway">Underway</a>
-    <a href="#inbound">Inbound</a>
-    <a href="#plans">Plans</a>
-    <a href="#open-core">Open&nbsp;core</a>
-    <a href="#pricing">Pricing</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#outcomes">What it does</a>
     <a href="#privacy">Privacy</a>
-    <a class="nav-cta" href="#get-started">Get started</a>
+    <a href="#pricing">Pricing</a>
+    <a href="/platform.html">Technical details</a>
+    <a class="nav-cta" href="#start">Try Farled</a>
   </nav>
 </header>
 
-<!-- ============ HERO: the chart ============ -->
-<section class="hero">
-  <div class="hero-copy">
-    <p class="etym"><span class="etym-word">farled</span> <span class="etym-phon">/ˈfɑːrˌleːd/</span> — Swedish. <em>A navigable channel; a marked, safe route through water.</em></p>
-    <h1>Your agents ship in parallel.<br><em>Give the traffic a chart.</em></h1>
-    <p class="lede">Farled watches humans and coding agents working across branches, worktrees, and repos — warns about collisions early, before they become merge conflicts, turns production signals into safe agent tasks, and records what actually shipped.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#get-started">Run the 60-second demo</a>
-      <a class="btn btn-ghost" href="#open-core">Open source &amp; Cloud</a>
-    </div>
-    <p class="hero-footnote">Advisory only — Farled never locks a file or blocks a write.</p>
-  </div>
-
-  <figure class="chart" aria-label="Chart: two branches converge on the same file; Farled marks the collision">
-    <svg viewBox="0 0 640 460" role="img">
-      <defs>
-        <pattern id="soundings" width="120" height="90" patternUnits="userSpaceOnUse">
-          <text x="18" y="24" class="snd">12</text>
-          <text x="86" y="58" class="snd">9</text>
-          <text x="42" y="82" class="snd">17</text>
-        </pattern>
-      </defs>
-
-      <!-- water + shoal contours -->
-      <rect x="0" y="0" width="640" height="460" fill="url(#soundings)" opacity="0.55"/>
-      <path class="contour" d="M-20 380 C 140 340, 240 420, 420 390 S 620 340, 680 360"/>
-      <path class="contour" d="M-20 420 C 160 380, 260 460, 460 430 S 640 390, 700 410"/>
-      <path class="contour c2" d="M480 -20 C 460 80, 560 140, 660 120"/>
-
-      <!-- the fairway: two work lanes -->
-      <text class="waterlabel" x="80" y="64">m a i n</text>
-      <path class="lane lane-solid" d="M40 90 C 200 90, 340 90, 600 90"/>
-
-      <path class="lane lane-a" d="M120 90 C 220 90, 250 180, 330 218"/>
-      <text class="lanelabel la" x="128" y="150">alice · fix/checkout</text>
-
-      <path class="lane lane-b" d="M120 330 C 230 330, 260 260, 330 232"/>
-      <text class="lanelabel lb" x="128" y="316">agent-7 · agent/null-guard</text>
-
-      <!-- buoys marking the channel -->
-      <g class="buoy buoy-green"><circle cx="120" cy="90" r="7"/><path d="M120 83 v-10"/></g>
-      <g class="buoy buoy-red"><circle cx="120" cy="330" r="7"/><path d="M120 323 v-10"/></g>
-
-      <!-- collision point -->
-      <g class="collision">
-        <circle class="ping" cx="345" cy="225" r="16"/>
-        <circle class="dot" cx="345" cy="225" r="6"/>
-        <path class="cross" d="M334 214 l22 22 M356 214 l-22 22"/>
-      </g>
-      <g class="callout">
-        <path class="callout-line" d="M362 216 L470 168"/>
-        <rect x="470" y="118" width="152" height="92" rx="2"/>
-        <text x="482" y="140" class="co-title">HUNK OVERLAP</text>
-        <text x="482" y="160" class="co-body">checkout.go 10–13</text>
-        <text x="482" y="177" class="co-body">2 active sessions</text>
-        <text x="482" y="197" class="co-note">advisory · sig-6a20166d</text>
-      </g>
-
-      <!-- safe continuation -->
-      <path class="lane lane-safe" d="M360 225 C 460 250, 520 300, 600 310"/>
-      <text class="lanelabel ls" x="452" y="296">rebased · merged clean</text>
-
-      <!-- compass rose -->
-      <g class="rose" transform="translate(566,392)">
-        <circle r="26"/><circle r="3"/>
-        <path d="M0 -26 L5 -5 L0 0 L-5 -5 Z" class="rose-n"/>
-        <path d="M0 26 L5 5 L0 0 L-5 5 Z"/>
-        <text y="-32" x="-4">N</text>
-      </g>
-    </svg>
-    <figcaption>Two sessions, one file, lines 10–13. Farled saw it before the pull request did.</figcaption>
-  </figure>
-</section>
-
-<!-- ============ THE PROBLEM ============ -->
-<section class="strip">
-  <p class="note-label">NOTE A — WHY NOW</p>
-  <h2>Agents made parallel work cheap.<br>Shared awareness didn’t keep up.</h2>
-  <div class="cols3">
-    <div><h3>Invisible traffic</h3><p>Five sessions across worktrees and machines, and nobody — human or agent — can answer “who else is touching this file?”</p></div>
-    <div><h3>Late collisions</h3><p>Overlapping edits surface at review time as merge conflicts and duplicate PRs, after the work is already paid for.</p></div>
-    <div><h3>Unrouted signals</h3><p>Sentry issues and CI failures queue up for human triage while capable agents sit idle — because routing them isn’t safe.</p></div>
-  </div>
-</section>
-
-<!-- ============ DEPARTURES / ARRIVALS ============ -->
-<section class="two-motions" id="underway">
-  <p class="note-label">NOTE B — HOW IT WORKS</p>
-  <div class="motion">
-    <h2><em>Underway</em> — work already in motion</h2>
-    <p>Local reporters and a GitHub connector observe real state: branches, worktrees, dirty files, changed line ranges, symbols, PRs. Deterministic detectors compare it all, live.</p>
-    <ul class="feature-list">
-      <li><strong>Hunk overlap</strong> — two sessions editing the same lines, flagged in seconds.</li>
-      <li><strong>Symbol overlap</strong> — same Go function touched on <em>different</em> lines? Still flagged, by name.</li>
-      <li><strong>File overlap</strong> — a local edit vs. a branch someone already pushed.</li>
-      <li><strong>PR annotations</strong> — one living comment per pull request: current collisions, then the all-clear.</li>
-    </ul>
-  </div>
-  <div class="motion" id="inbound">
-    <h2><em>Inbound</em> — signals becoming safe tasks</h2>
-    <p>Production errors, webhooks, and tickets are normalized, deduplicated, and mapped to the code they implicate — then routed to agents only under rules you wrote.</p>
-    <ul class="feature-list">
-      <li><strong>Sentry intake</strong> — verified webhooks; five repeat alerts become one signal with a count.</li>
-      <li><strong>Stack-frame mapping</strong> — frames matched to the repos and paths your team actually touches.</li>
-      <li><strong>Dispatch with brakes</strong> — capability matching, rate limits, protected paths, named human approval for risky work.</li>
-      <li><strong>Outcome memory</strong> — every task traced signal → agent → PR → <em>merged or wasted</em>.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ PASSAGE PLANS ============ -->
-<section class="proof" id="plans">
-  <p class="note-label">NOTE C — PASSAGE PLANS</p>
-  <div class="proof-grid">
-    <div class="proof-copy">
-      <h2><em>Passage plans</em> — deconflicted before departure</h2>
-      <p>Radar tells you about collisions as they happen. Plans prevent them: at the end of its planning phase, an agent files the footprint it intends to change — path globs, one-line summary — and gets a traffic advisory back <em>before writing any code</em>.</p>
-      <ul class="feature-list">
-        <li><strong>File → advisory</strong> — <span class="mono">farled_file_plan</span> answers <em>clear</em>, <em>sequence&nbsp;after</em> (someone filed that water first), or <em>coordinate</em> (someone is already editing inside it).</li>
-        <li><strong>Never a lock</strong> — a plan is a reservation on the chart, not a lease on the code. Anyone can still sail anywhere; they just do it informed.</li>
-        <li><strong>Drift detection</strong> — observed edits are reconciled against the filed route. Leave your footprint and a <span class="mono">plan_drift</span> signal flags the scope creep; rejoin it and the signal clears.</li>
-        <li><strong>Auto-plans at dispatch</strong> <span class="badge-cloud">Cloud</span> — an assigned task reserves its own footprint the moment it’s dispatched, with zero agent effort.</li>
-        <li><strong>One shared discipline</strong> — the <a href="/docs/impact-surface">impact-surface skill</a> teaches every agent (any vendor) to derive footprints from a PRD or plan the same way, so advisories stay comparable across the whole team.</li>
-      </ul>
-      <p class="oc-cta"><a href="/docs/passage-plans">Read the pilot book: lifecycle, advisory rules, drift, wiring agents →</a></p>
-    </div>
-    <div class="terminal" role="img" aria-label="Terminal output of an agent filing a passage plan and receiving a traffic advisory">
-      <div class="term-bar"><span></span><span></span><span></span><em>agent planning phase</em></div>
-      <pre><code>🤖 farled_file_plan
-   paths:   ["src/checkout/**"]
-   summary: "Fix checkout summary TypeError"
-
-<b class="warn">⚑ ADVISORY — sequence_after</b>
-  Plan plan-a41f… filed this footprint first
-  (bugbot · “Refactor checkout totals”).
-  Sequence after it or rescope the
-  overlapping globs. <b>Nothing is locked.</b>
-
-🤖 agent rescopes to src/checkout/summary.go
-   → <b class="ok">✓ route is clear — plan filed</b>
-
-… later, mid-work …
-<b class="warn">⚠ PLAN DRIFT</b>
-  1 path outside the declared footprint:
-  billing/invoice.go. Advisory only —
-  the plan re-confirms when you rejoin
-  your route.</code></pre>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TERMINAL PROOF ============ -->
-<section class="proof">
-  <p class="note-label">NOTE D — SEE IT RUN</p>
-  <div class="proof-grid">
-    <div class="proof-copy">
-      <h2>One binary. No services.<br>Sixty seconds to a caught collision.</h2>
-      <p>The demo builds a throwaway repo with two worktrees, edits overlapping lines as a “human” and an “agent,” and shows you the signal — end to end, on your machine.</p>
-      <p>Agents query the same radar over MCP before they edit: <span class="mono">farled_query_active_work</span> answers with sessions, line ranges, open signals, and plain advice.</p>
-    </div>
-    <div class="terminal" role="img" aria-label="Terminal output of farled demo collision">
-      <div class="term-bar"><span></span><span></span><span></span><em>farled demo collision</em></div>
-      <pre><code>▸ created throwaway repo …/app
-▸ added worktree …/app-agent on branch agent/fix
-▸ human edited checkout.go lines 10-12
-▸ agent edited checkout.go lines 11-13
-▸ both sessions reported <b>(metadata only)</b>
-
-<b class="warn">⚠ COLLISION DETECTED</b>
-  Two active sessions edit overlapping lines of
-  checkout.go: agent-7 on agent/fix (lines 11-13)
-  and Alice on main (lines 10-12).
-
-🤖 agent query:
-  2 active session(s) touch checkout.go;
-  1 open signal, severity medium. <b>Consider
-  coordinating before editing the same lines.</b>
-
-<b class="ok">✓ demo complete — the loop works end to end</b></code></pre>
-    </div>
-  </div>
-</section>
-
-<!-- ============ OPEN CORE ============ -->
-<section class="opencore" id="open-core">
-  <p class="note-label">NOTE E — OPEN CORE</p>
-  <h2>Open-source the edge. <em>Charter the deep water.</em></h2>
-  <p class="oc-lede">Everything that touches your code and your laptops is Apache-2.0 and inspectable. The hosted, multi-team memory is the business.</p>
-  <div class="oc-grid">
-    <div class="oc-card oc-oss">
-      <p class="oc-tag"><span class="buoy-dot green"></span>Open source · Apache-2.0</p>
-      <h3>Farled OSS</h3>
-      <ul>
-        <li>Local reporter — metadata-only, with a <span class="mono">--preview</span> mode that shows every byte before it’s sent</li>
-        <li>Community server: live radar, three collision detectors, dashboard — localhost, SQLite, single team</li>
-        <li>Sentry + GitHub connectors with signature verification</li>
-        <li>Agent MCP server: query, register, accept, report, plan — ten tools in all</li>
-        <li>Passage plans: declare a footprint, get a traffic advisory before coding; drift detection keeps plans honest</li>
-        <li>Impact-surface skill: one installable discipline for how any agent derives &amp; files footprints</li>
-        <li>Manual dispatch: worker registry, assignments, full lifecycle</li>
-        <li>Open protocol: 16 versioned schemas any tool can implement</li>
-      </ul>
-      <p class="oc-cta"><a href="#get-started">go install &amp; run the demo →</a></p>
-    </div>
-    <div class="oc-card oc-cloud">
-      <p class="oc-tag"><span class="buoy-dot gold"></span>Farled Cloud · design-partner stage</p>
-      <h3>Farled Cloud</h3>
-      <ul>
-        <li>Multi-team tenancy — org-scoped everything, hashed tokens; the same open protocol, so OSS reporters just work</li>
-        <li>Harbor report: scan recent pull requests and see the collisions Farled would have caught before installing laptop reporters; open the full report or export CSV</li>
-        <li>Pull-request annotations that update in place and end in an all-clear</li>
-        <li>Agent recommendation with reasons — capability, load, access; deterministic, never a dice roll</li>
-        <li>Approval gates: high-risk work requires a named human’s approval, recorded</li>
-        <li>Policy autopilot with brakes: rate limits, protected paths, and policies that pause themselves after failures</li>
-        <li>Auto-plans at dispatch: assigned tasks reserve their footprint automatically — zero agent effort</li>
-        <li>Insights: agent success rates, policy effectiveness, task funnel</li>
-      </ul>
-      <!-- GO-LIVE: restore href https://cloud.farled.dev/signup once the cloud host is up (deploy/README.md) -->
-      <p class="oc-cta"><!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Harbor%20evaluation">Start with Harbor — request access →</a><!--email_on--></p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRICING ============ -->
-<section class="pricing" id="pricing">
-  <p class="note-label">NOTE F — HARBOR DUES</p>
-  <h2>Pay per contributor. <em>Agents berth cheaper.</em></h2>
-  <p class="pr-lede">One metric: contributors Farled actually observed this month — humans and agents that reported work or received assignments. Adding more agents is your growth path; we priced it so it’s ours too, not a penalty.</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <p class="oc-tag"><span class="buoy-dot green"></span>Community</p>
-      <p class="price"><b>Free</b><span>forever · Apache-2.0</span></p>
-      <ul>
-        <li>Everything in Farled OSS</li>
-        <li>Local server, radar &amp; dashboard</li>
-        <li>Sentry, GitHub Issues, CI &amp; Dependabot intake</li>
-        <li>Manual dispatch, full lifecycle</li>
-        <li>Single team, your hardware, your rules</li>
-      </ul>
-      <p class="oc-cta"><a href="#get-started">go install →</a></p>
-    </div>
-    <div class="price-card price-featured">
-      <p class="oc-tag"><span class="buoy-dot gold"></span>Cloud Team</p>
-      <p class="price"><b>$10</b><span>per human / month</span></p>
-      <p class="price price-sub"><b>$5</b><span>per agent / month · 14-day trial</span></p>
-      <ul>
-        <li>Hosted multi-team memory, org-scoped tokens</li>
-        <li>Harbor report over your recent PR history, with dashboard detail and CSV export</li>
-        <li>Approval inbox &amp; hosted dashboard</li>
-        <li>PR annotations that end in an all-clear</li>
-        <li>Linear, PagerDuty &amp; Alertmanager connectors</li>
-        <li>Policy autopilot with brakes; insights &amp; funnel</li>
-        <li>90-day history</li>
-      </ul>
-      <!-- GO-LIVE: restore href https://cloud.farled.dev/signup once the cloud host is up (deploy/README.md) -->
-      <p class="oc-cta"><!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Cloud%20trial">Start a trial — request access →</a><!--email_on--></p>
-    </div>
-    <div class="price-card">
-      <p class="oc-tag"><span class="buoy-dot"></span>Enterprise</p>
-      <p class="price"><b>Custom</b><span>annual · talk to us</span></p>
-      <ul>
-        <li>SSO/SCIM, RBAC, audit exports <span class="roadmap">(roadmap)</span></li>
-        <li>AI work provenance reports — agent-attributed session share, audit-evidence support</li>
-        <li>Self-hosted or single-tenant cloud <span class="roadmap">(roadmap)</span></li>
-        <li>Unlimited retention, legal hold <span class="roadmap">(roadmap)</span></li>
-        <li>SLA &amp; named support <span class="roadmap">(roadmap)</span></li>
-      </ul>
-      <p class="oc-cta"><!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Enterprise">Talk to us →</a><!--email_on--></p>
-    </div>
-  </div>
-  <p class="pr-foot">Design-partner berths are open: six months free in exchange for honest feedback and a case study. <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">info@farled.dev</a><!--email_on--></p>
-</section>
-
-<!-- ============ PRIVACY ============ -->
-<section class="privacy" id="privacy">
-  <div class="caution">
-    <p class="caution-label">CAUTION — READ BEFORE INSTALLING ANYTHING ON ENGINEERS’ MACHINES</p>
-    <h2>Metadata only. Structurally.</h2>
-    <div class="cols2">
-      <div>
-        <h3>What Farled sends</h3>
-        <p class="mono-list">paths · line ranges · branch names · symbol names · timestamps · counts</p>
+<main>
+  <section class="landing-hero" data-mode="with" aria-labelledby="hero-title">
+    <div class="landing-hero-copy">
+      <p class="hero-kicker">Traffic control for parallel coding</p>
+      <h1 id="hero-title">Farled</h1>
+      <p class="landing-etym"><span>farled</span> <b>/ˈfɑːrˌleːd/</b> · Swedish — a navigable channel; a marked, safe route through water.</p>
+      <p class="hero-offer">See overlapping work before it becomes a merge problem.</p>
+      <p class="lede">Farled shows when developers and coding agents are changing the same parts of a codebase, then warns the team while there is still time to coordinate.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#how-it-works">Watch the example</a>
+        <a class="btn btn-ghost" href="/platform.html">Technical deep dive</a>
       </div>
-      <div>
-        <h3>What it cannot send</h3>
-        <p>File contents, diffs, prompts, chat logs, commit messages, secrets. <strong>No field in the wire protocol can carry them</strong> — verified by tests that plant a canary secret and audit every transmitted byte.</p>
-      </div>
+      <p class="hero-footnote">Humans, Claude, Codex, Cursor, and other tools share the same view. Nothing is locked.</p>
     </div>
-    <p class="caution-foot">Built-in exclusions for <span class="mono">.env</span>, keys, and secret paths cannot be disabled. Run <span class="mono">farled report --preview</span> to see exactly what would leave the machine — nothing is sent.</p>
-  </div>
-</section>
 
-<!-- ============ GETTING STARTED ============ -->
-<section class="getstarted" id="get-started">
-  <p class="note-label">NOTE G — GETTING STARTED</p>
-  <h2>Chart your first passage</h2>
-  <p class="gs-lede">Three routes, depending on how many of you are sailing. Every route starts the same way:</p>
-  <pre class="cmd cmd-wide"><code>go install github.com/getfarled/farled/cmd/farled@latest</code></pre>
+    <div class="mode-switch" role="group" aria-label="Compare the workflow">
+      <button type="button" data-mode-button="without" aria-pressed="false">Without Farled</button>
+      <button type="button" data-mode-button="with" aria-pressed="true">With Farled</button>
+    </div>
 
-  <div class="paths">
-    <article class="path">
-      <div class="path-info">
-        <p class="path-tag"><span class="buoy-dot green"></span>Solo · 60 seconds</p>
-        <h3>Just you (and your agents)</h3>
-        <p>Everything runs on your machine. Prove the loop, then run it for real.</p>
+    <div class="traffic-visual" role="img" aria-label="Alice and an agent work in parallel. Farled spots that both are changing checkout code and helps the work proceed in sequence.">
+      <svg viewBox="0 0 920 470" aria-hidden="true">
+        <defs>
+          <pattern id="homeSoundings" width="116" height="82" patternUnits="userSpaceOnUse">
+            <text x="18" y="24" class="traffic-sounding">12</text>
+            <text x="82" y="58" class="traffic-sounding">9</text>
+          </pattern>
+        </defs>
+        <rect width="920" height="470" fill="url(#homeSoundings)" opacity=".65"/>
+        <path class="traffic-contour" d="M-30 394 C 150 340, 278 432, 450 386 S 736 330, 960 372"/>
+        <path class="traffic-contour traffic-contour-dash" d="M-40 438 C 160 388, 318 466, 530 426 S 760 392, 960 418"/>
+
+        <g class="traffic-base">
+          <text x="212" y="52" class="traffic-label traffic-label-strong">WORK IN MOTION</text>
+          <line x1="220" y1="74" x2="866" y2="74" class="traffic-hairline"/>
+
+          <g transform="translate(220 126)">
+            <circle r="10" class="traffic-person"/>
+            <text x="22" y="5" class="traffic-label">Alice · checkout totals</text>
+          </g>
+          <g transform="translate(220 302)">
+            <rect x="-9" y="-9" width="18" height="18" class="traffic-agent"/>
+            <text x="22" y="5" class="traffic-label">Agent-7 · null guard</text>
+          </g>
+
+          <g transform="translate(460 207)">
+            <rect x="-76" y="-24" width="152" height="48" rx="2" class="traffic-file"/>
+            <text y="-3" text-anchor="middle" class="traffic-label traffic-label-strong">checkout.go</text>
+            <text y="15" text-anchor="middle" class="traffic-note">shared code area</text>
+          </g>
+          <g transform="translate(808 207)">
+            <circle r="34" class="traffic-port"/>
+            <text y="-3" text-anchor="middle" class="traffic-label traffic-label-strong">PR</text>
+            <text y="15" text-anchor="middle" class="traffic-note">review</text>
+          </g>
+        </g>
+
+        <g class="mode-layer without-layer">
+          <path d="M230 126 C 310 126, 338 174, 384 199" class="traffic-route route-human"/>
+          <path d="M230 302 C 310 302, 342 242, 384 216" class="traffic-route route-agent"/>
+          <path d="M536 207 C 642 207, 708 207, 774 207" class="traffic-route route-danger"/>
+          <g transform="translate(808 207)" class="traffic-alert-late">
+            <circle r="49" class="traffic-ping"/>
+            <path d="M-11 -11 L11 11 M11 -11 L-11 11" class="traffic-cross"/>
+          </g>
+          <g transform="translate(625 142)" class="traffic-callout traffic-callout-danger">
+            <rect x="-92" y="-28" width="184" height="56" rx="2"/>
+            <text y="-4" text-anchor="middle" class="traffic-label traffic-label-strong">Conflict found late</text>
+            <text y="15" text-anchor="middle" class="traffic-note">work already completed</text>
+          </g>
+        </g>
+
+        <g class="mode-layer with-layer">
+          <path d="M230 126 C 310 126, 338 174, 384 199" class="traffic-route route-human"/>
+          <path d="M230 302 C 310 302, 342 242, 384 216" class="traffic-route route-agent"/>
+          <g transform="translate(460 207)" class="traffic-alert-early">
+            <circle r="39" class="traffic-ping"/>
+            <circle r="8" class="traffic-warning-dot"/>
+          </g>
+          <g transform="translate(588 132)" class="traffic-callout traffic-callout-safe">
+            <rect x="-104" y="-31" width="208" height="62" rx="2"/>
+            <text y="-5" text-anchor="middle" class="traffic-label traffic-label-strong">Overlap spotted early</text>
+            <text y="16" text-anchor="middle" class="traffic-note">coordinate or sequence</text>
+          </g>
+          <path d="M536 197 C 630 176, 696 178, 774 199" class="traffic-route route-safe"/>
+          <path d="M472 232 C 514 302, 594 340, 674 334" class="traffic-route route-resequence"/>
+          <g transform="translate(708 334)">
+            <path d="M-13 0 L-3 10 L15 -12" class="traffic-check"/>
+            <text x="27" y="5" class="traffic-label traffic-label-safe">Agent-7 goes next</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <p class="traffic-caption" aria-live="polite">
+      <span class="without-caption">The conflict appears at review, after both tasks are finished.</span>
+      <span class="with-caption">Farled sees the shared code area while both tasks are still in motion.</span>
+    </p>
+  </section>
+
+  <section class="landing-facts" aria-label="Farled at a glance">
+    <div><strong>One shared view</strong><span>across people and agents</span></div>
+    <div><strong>Early warnings</strong><span>by file, line, and symbol</span></div>
+    <div><strong>Metadata only</strong><span>never source, diffs, or prompts</span></div>
+  </section>
+
+  <section class="landing-story" id="how-it-works">
+    <p class="note-label">NOTE A — ONE SIMPLE EXAMPLE</p>
+    <div class="section-intro">
+      <h2>Three tasks start.<br><em>Two head toward the same code.</em></h2>
+      <p>Every task looks independent from inside its own window. Farled supplies the missing team-wide view.</p>
+    </div>
+    <ol class="story-steps">
+      <li>
+        <span class="story-number">01</span>
+        <span class="story-marker marker-start" aria-hidden="true"></span>
+        <h3>Work starts</h3>
+        <p>A developer and several agents begin tasks in separate branches and worktrees.</p>
+      </li>
+      <li>
+        <span class="story-number">02</span>
+        <span class="story-marker marker-cross" aria-hidden="true"></span>
+        <h3>Paths overlap</h3>
+        <p>Two tasks begin changing the same checkout code without knowing about each other.</p>
+      </li>
+      <li>
+        <span class="story-number">03</span>
+        <span class="story-marker marker-warn" aria-hidden="true"></span>
+        <h3>Farled warns</h3>
+        <p>The team sees who is involved, where the overlap is, and how urgent it looks.</p>
+      </li>
+      <li>
+        <span class="story-number">04</span>
+        <span class="story-marker marker-clear" aria-hidden="true"></span>
+        <h3>Work is sequenced</h3>
+        <p>One task waits or changes scope. Both can proceed without discovering the problem at review.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="landing-outcomes" id="outcomes">
+    <p class="note-label">NOTE B — WHAT FARLED DOES</p>
+    <h2>Shared awareness for work<br><em>that moves faster than the team can watch.</em></h2>
+
+    <article class="outcome-row">
+      <div class="outcome-copy">
+        <p class="outcome-index">01 · SEE</p>
+        <h3>Know what is already in motion</h3>
+        <p>Farled brings active branches, worktrees, pull requests, people, and agents into one current view.</p>
       </div>
-      <div class="path-how">
-        <pre class="cmd"><code>farled demo collision
-farled serve          # radar + dashboard on localhost
-farled report         # in each repo / worktree</code></pre>
+      <div class="mini-radar" role="img" aria-label="Three active work sessions touching different parts of a repository">
+        <div class="mini-radar-head"><span>ACTIVE WORK</span><span>3 sessions</span></div>
+        <div class="mini-session"><i class="person-dot"></i><b>Alice</b><span>checkout.go</span><em>lines 10–18</em></div>
+        <div class="mini-session"><i class="agent-dot"></i><b>Agent-7</b><span>checkout.go</span><em>lines 16–24</em></div>
+        <div class="mini-session"><i class="agent-dot safe"></i><b>Codex</b><span>invoice.go</span><em>lines 42–51</em></div>
       </div>
     </article>
 
-    <article class="path">
-      <div class="path-info">
-        <p class="path-tag"><span class="buoy-dot green"></span>Team · self-hosted OSS</p>
-        <h3>A few of you, your own server</h3>
-        <p>One machine hosts the radar; everyone else joins with one command.</p>
+    <article class="outcome-row outcome-reverse">
+      <div class="outcome-copy">
+        <p class="outcome-index">02 · WARN</p>
+        <h3>Spot overlapping work early</h3>
+        <p>Deterministic checks flag shared files, nearby lines, and the same Go function without asking an AI model to guess.</p>
       </div>
-      <div class="path-how">
-        <pre class="cmd"><code># host
-farled serve --addr &lt;private-ip&gt;:4711
-
-# every laptop (humans and agents alike)
-farled quickconnect http://&lt;private-ip&gt;:4711</code></pre>
-        <div class="path-caution">
-          <strong>Know the trade-off:</strong> the community server has <em>no authentication by design</em> — its trust boundary is a single trusted network. Only expose it on a private network you control (a VPN/tailnet between your laptops is ideal; office Wi-Fi is not). It sees only metadata either way — but anyone who can reach it can read and write your radar. Need accounts, tokens, and isolation? That’s Cloud, below.
+      <div class="mini-warning" role="img" aria-label="Farled warning that Alice and Agent-7 are changing overlapping checkout code">
+        <div class="warning-beacon"><span></span></div>
+        <div>
+          <p class="warning-label">OVERLAP · MEDIUM</p>
+          <strong>Two tasks are changing checkout.go</strong>
+          <p>Alice · lines 10–18<br>Agent-7 · lines 16–24</p>
         </div>
       </div>
     </article>
 
-    <article class="path">
-      <div class="path-info">
-        <p class="path-tag"><span class="buoy-dot gold"></span>Team · Farled Cloud</p>
-        <h3>Authenticated, org-isolated, annotated</h3>
-        <p>Start with a Harbor report over recent pull requests, then add reporters when you want live radar.</p>
-        <p class="path-note">Same open protocol, same reporter — plus PR annotations, agent recommendation, approval gates, policy autopilot, value ledger, and AI work provenance.</p>
+    <article class="outcome-row">
+      <div class="outcome-copy">
+        <p class="outcome-index">03 · COORDINATE</p>
+        <h3>Give everyone the same answer</h3>
+        <p>People use the dashboard. Agents ask over MCP. Passage plans can reserve an intended area before coding begins. Every surface reads the same shared state.</p>
       </div>
-      <div class="path-how">
-        <pre class="cmd"><code># browser, once (opening soon — email info@farled.dev for early access)
-https://cloud.farled.dev/signup
-
-# admin, once integration is ready
-farled-cloud integration set acme github.com/acme/app acme/app ghp_…
-
-# every laptop
-farled quickconnect https://farled.acme.dev --token fld_…</code></pre>
+      <div class="mini-advice" role="img" aria-label="Farled advises an agent to sequence its task after work already underway">
+        <p class="advice-query">agent asks · “Is checkout clear?”</p>
+        <div class="advice-answer">
+          <span class="advice-flag"></span>
+          <div><b>Sequence after Alice</b><p>She is already changing the checkout totals. Nothing is locked.</p></div>
+        </div>
       </div>
     </article>
-  </div>
+  </section>
 
-  <div class="agents-any">
-    <h3>Then give <em>any</em> agent the chart</h3>
-    <p>Farled speaks <a href="https://modelcontextprotocol.io">MCP</a>, the open standard — so this works with Claude Code, Codex, Cursor, Gemini CLI, or anything else that supports it. <span class="mono">quickconnect</span> prints your exact snippet; the universal form is:</p>
-    <pre class="cmd cmd-wide"><code>{ "mcpServers": { "farled": { "command": "farled", "args": ["mcp"] } } }</code></pre>
-    <p class="path-note">Agents get <span class="mono">farled_query_active_work</span> — “who else is touching this file?” — plus the worker tools to receive, accept, and report dispatched tasks.</p>
-  </div>
+  <section class="tool-span">
+    <p class="note-label">NOTE C — ONE CHART, MANY TOOLS</p>
+    <h2>Humans and agents share the same view.</h2>
+    <p>Farled sits beside the tools rather than replacing them. Teams can coordinate local work and remote branches across the coding assistants they already use.</p>
+    <div class="tool-line" aria-label="Compatible participants">
+      <span>Human developers</span><i></i><span>Claude Code</span><i></i><span>Codex</span><i></i><span>Cursor</span><i></i><span>GitHub</span><i></i><span>Any MCP client</span>
+    </div>
+    <p class="technical-link"><a href="/platform.html">Explore live radar, passage plans, dispatch, connectors, and the open protocol →</a></p>
+  </section>
 
-  <p class="gs-foot">The repositories open at launch — until then, <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20early%20access">ask for early access</a><!--email_on--> or a design-partner seat. Questions? <!--email_off--><a href="mailto:info@farled.dev">info@farled.dev</a><!--email_on--></p>
-</section>
+  <section class="landing-proof">
+    <p class="note-label">NOTE D — SEE THE REAL LOOP</p>
+    <div class="proof-grid">
+      <div class="proof-copy">
+        <h2>Try the collision demo<br><em>on your own machine.</em></h2>
+        <p>One command creates a throwaway repository, starts two worktrees, makes overlapping edits, and shows the warning an agent receives.</p>
+        <p>No account, hosted service, or sample repository is required.</p>
+        <pre class="cmd cmd-wide"><code>go install github.com/getfarled/farled/cmd/farled@latest
+farled demo collision</code></pre>
+      </div>
+      <div class="terminal compact-terminal" role="img" aria-label="Terminal output showing a collision detected by Farled">
+        <div class="term-bar"><span></span><span></span><span></span><em>farled demo collision</em></div>
+        <pre><code>▸ Alice edited checkout.go lines 10–12
+▸ agent-7 edited checkout.go lines 11–13
+
+<b class="warn">⚠ OVERLAPPING WORK DETECTED</b>
+  Alice and agent-7 are changing the
+  same part of checkout.go.
+
+<b>Agent advice:</b>
+  Coordinate before editing these lines,
+  or choose a different starting point.
+
+<b class="ok">✓ metadata only · nothing was blocked</b></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="privacy landing-privacy" id="privacy">
+    <div class="caution privacy-plain">
+      <p class="caution-label">BUILT FOR THE PERSON WHO HAS TO SAY YES</p>
+      <div class="privacy-heading">
+        <h2>Farled sees the traffic.<br><em>It does not read the cargo.</em></h2>
+        <p>The protocol has no field for source code, diff bodies, prompts, chat logs, or secrets.</p>
+      </div>
+      <div class="privacy-manifest" role="img" aria-label="Farled sends file paths, line ranges, actor names, branches, and timestamps, but not source code, diffs, prompts, or secrets">
+        <div class="manifest-yes">
+          <p>FARLED CAN SEND</p>
+          <span>file path</span><span>line range</span><span>actor</span><span>branch</span><span>timestamp</span>
+        </div>
+        <div class="manifest-no">
+          <p>FARLED CANNOT SEND</p>
+          <span>source code</span><span>diffs</span><span>prompts</span><span>chat logs</span><span>secrets</span>
+        </div>
+      </div>
+      <p class="privacy-foot">Preview every payload before it leaves a machine with <span class="mono">farled report --preview</span>. <a href="/security.html">Read the security details →</a></p>
+    </div>
+  </section>
+
+  <section class="landing-pricing" id="pricing">
+    <p class="note-label">NOTE E — START SMALL</p>
+    <div class="section-intro">
+      <h2>Prove the problem first.<br><em>Expand only when it helps.</em></h2>
+      <p>Run the open-source demo locally, or evaluate recent pull-request overlap with Farled Cloud during the design-partner stage.</p>
+    </div>
+    <div class="landing-price-grid">
+      <article class="landing-price">
+        <p class="price-route"><span class="buoy-dot green"></span> Community</p>
+        <p class="price"><b>Free</b><span>Apache-2.0 · your machine</span></p>
+        <p>Local reporter, live radar, deterministic warnings, dashboard, and agent tools.</p>
+        <a href="#start">Run the demo →</a>
+      </article>
+      <article class="landing-price cloud-route">
+        <p class="price-route"><span class="buoy-dot gold"></span> Cloud design partner</p>
+        <p class="price"><b>6 months free</b><span>for active design partners</span></p>
+        <p>Hosted team view, pull-request analysis, annotations, and direct access to shape the product.</p>
+        <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">Request an evaluation →</a><!--email_on-->
+      </article>
+    </div>
+    <p class="pricing-detail"><a href="/platform.html#pricing">See the full Community, Cloud, and Enterprise comparison →</a></p>
+  </section>
+
+  <section class="landing-start" id="start">
+    <div>
+      <p class="note-label">YOUR FIRST CHART</p>
+      <h2>See the problem in sixty seconds.</h2>
+      <p>The demo is local, disposable, and shows the complete Farled loop.</p>
+    </div>
+    <div class="start-action">
+      <pre class="cmd"><code>farled demo collision</code></pre>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/platform.html#get-started">Installation details</a>
+        <!--email_off--><a class="btn btn-ghost" href="mailto:info@farled.dev?subject=Farled%20early%20access">Request early access</a><!--email_on-->
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer class="colophon">
   <div>
     <span class="brand-name">Farled</span>
-    <span class="foot-sep">·</span> safe routing for AI-assisted engineering
-    <span class="foot-sep">·</span> <a href="/security">Security</a>
-    <span class="foot-sep">·</span> <!--email_off--><a href="mailto:info@farled.dev">info@farled.dev</a><!--email_on-->
+    <span class="foot-sep">·</span> shared awareness for parallel coding
+    <span class="foot-sep">·</span> <a href="/platform.html">Technical details</a>
+    <span class="foot-sep">·</span> <a href="/security.html">Security</a>
   </div>
-  <div class="foot-meta mono">59.3293° N, 18.0686° E · chart datum: farled/v1 · soundings in tests (130)</div>
+  <div class="foot-meta mono">metadata only · advisory always · farled/v1</div>
   <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
 </footer>
 
-</div><!-- /sheet -->
+</div>
 
 <script>
-  // Scroll reveal + one-shot hero course drawing. Honors reduced motion.
+  const hero = document.querySelector('.landing-hero');
+  const modeButtons = document.querySelectorAll('[data-mode-button]');
+  const setMode = (mode) => {
+    hero.dataset.mode = mode;
+    for (const button of modeButtons) {
+      button.setAttribute('aria-pressed', String(button.dataset.modeButton === mode));
+    }
+  };
+  for (const button of modeButtons) {
+    button.addEventListener('click', () => setMode(button.dataset.modeButton));
+  }
+
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduce) {
     document.body.classList.add('motion');
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    }, { threshold: 0.15 });
-    document.querySelectorAll('section').forEach(s => io.observe(s));
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('main > section').forEach((section) => observer.observe(section));
   } else {
-    document.querySelectorAll('section').forEach(s => s.classList.add('in'));
+    document.querySelectorAll('main > section').forEach((section) => section.classList.add('in'));
   }
 </script>
 </body>

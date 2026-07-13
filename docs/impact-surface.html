@@ -27,7 +27,7 @@
 <div class="sheet">
 
 <header class="masthead">
-  <div class="brand">
+  <a class="brand brand-home" href="/" aria-label="Farled home">
     <svg class="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
       <g fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round">
         <path d="M164 92 V 336"/>
@@ -39,19 +39,20 @@
       <path d="M312 438 h 92 l -46 -80 z" fill="var(--starboard)"/>
     </svg>
     <span class="brand-name">Farled</span>
-  </div>
+  </a>
   <nav class="topnav" aria-label="Main">
-    <a href="/docs/passage-plans">Passage plans</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/security">Security</a>
-    <a class="nav-cta" href="/#get-started">Get started</a>
+    <a href="/">Overview</a>
+    <a href="/platform.html">Technical details</a>
+    <a href="/docs/passage-plans.html">Passage plans</a>
+    <a href="/security.html">Security</a>
+    <a class="nav-cta" href="/platform.html#get-started">Technical setup</a>
   </nav>
 </header>
 
 <section class="doc">
   <p class="note-label">PILOT BOOK — THE IMPACT-SURFACE SKILL</p>
   <h2>Every plan has a footprint. <em>Derive it the same way, every time.</em></h2>
-  <p>A <a href="/docs/passage-plans">passage plan</a> is only as good as the footprint it declares. This skill is the shared discipline for deriving that footprint — from a PRD, spec, ticket, or plan-mode output — so every agent and human on a team declares work the same way and the traffic advisories stay comparable. It ships as <span class="mono">skills/impact-surface/SKILL.md</span> in the Farled repo: agents whose harness loads skills install it; everyone else pastes it into <span class="mono">AGENTS.md</span> or their system prompt. Dev-agnostic by construction.</p>
+  <p>A <a href="/docs/passage-plans.html">passage plan</a> is only as good as the footprint it declares. This skill is the shared discipline for deriving that footprint — from a PRD, spec, ticket, or plan-mode output — so every agent and human on a team declares work the same way and the traffic advisories stay comparable. It ships as <span class="mono">skills/impact-surface/SKILL.md</span> in the Farled repo: agents whose harness loads skills install it; everyone else pastes it into <span class="mono">AGENTS.md</span> or their system prompt. Dev-agnostic by construction.</p>
 
   <h3>Step 1 — Derive the impact surface</h3>
   <p>Walk the categories; for each, ask <em>does this work touch it?</em> Most tasks hit three or four — a task that hits all of them should probably be split.</p>
@@ -104,7 +105,7 @@
   <div>
     <span class="brand-name">Farled</span>
     <span class="foot-sep">·</span> safe routing for AI-assisted engineering
-    <span class="foot-sep">·</span> <a href="/security">Security</a>
+    <span class="foot-sep">·</span> <a href="/security.html">Security</a>
     <span class="foot-sep">·</span> <!--email_off--><a href="mailto:info@farled.dev">info@farled.dev</a><!--email_on-->
   </div>
   <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
