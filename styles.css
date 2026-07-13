@@ -311,15 +311,18 @@ section p { max-width: var(--measure); }
 
 /* ---- full-width traffic hero ---- */
 .landing-hero {
-  min-height: 690px;
-  padding: 64px 0 52px;
+  display: grid;
+  grid-template-columns: minmax(320px, 440px) minmax(0, 1fr);
+  gap: 10px 44px;
+  align-items: center;
+  padding: 64px 0 40px;
   overflow: hidden;
   isolation: isolate;
 }
 .landing-hero-copy {
   position: relative;
   z-index: 3;
-  width: min(500px, 46%);
+  width: auto;
 }
 .hero-kicker {
   margin-bottom: 18px;
@@ -374,12 +377,10 @@ section p { max-width: var(--measure); }
 .mode-switch button:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
 
 .traffic-visual {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  right: -18px;
-  bottom: 2px;
-  width: 74%;
-  max-width: 880px;
+  width: 100%;
+  margin-top: 52px; /* clears the mode switch pinned top-right */
 }
 .traffic-visual svg { display: block; width: 100%; height: auto; overflow: visible; }
 .traffic-sounding { fill: var(--shoal); font: 10px var(--mono); }
@@ -417,11 +418,11 @@ section p { max-width: var(--measure); }
 .landing-hero[data-mode="with"] .without-layer,
 .landing-hero[data-mode="without"] .with-layer { pointer-events: none; }
 .traffic-caption {
-  position: absolute;
+  position: relative;
   z-index: 4;
-  right: 0;
-  bottom: 24px;
-  width: min(500px, 50%);
+  grid-column: 1 / -1;
+  justify-self: end;
+  width: min(500px, 100%);
   padding-top: 9px;
   border-top: 1px solid var(--shoal);
   color: var(--ink-soft);
@@ -610,11 +611,11 @@ section p { max-width: var(--measure); }
 .start-action .hero-actions { justify-content: flex-start; }
 
 @media (max-width: 980px) {
-  .landing-hero { min-height: auto; padding-bottom: 30px; }
+  .landing-hero { display: block; min-height: auto; padding-bottom: 30px; }
   .landing-hero-copy { width: 100%; max-width: 650px; }
   .mode-switch { position: relative; top: auto; right: auto; margin-top: 38px; }
-  .traffic-visual { position: relative; right: auto; bottom: auto; width: 115%; max-width: none; margin: 10px -8% 0 -7%; }
-  .traffic-caption { position: relative; right: auto; bottom: auto; width: 100%; text-align: left; }
+  .traffic-visual { width: 115%; max-width: none; margin: 10px -8% 0 -7%; }
+  .traffic-caption { width: 100%; text-align: left; }
   .story-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 0; }
   .story-steps li:nth-child(2)::after { display: none; }
   .outcome-row,
