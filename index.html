@@ -39,29 +39,28 @@
     <a href="#outcomes">What it does</a>
     <a href="#privacy">Privacy</a>
     <a href="#pricing">Pricing</a>
-    <a href="/platform.html">Technical details</a>
+    <a href="/platform">Technical details</a>
     <a class="nav-cta" href="#start">Try Farled</a>
   </nav>
 </header>
 
 <main>
-  <section class="landing-hero" data-mode="with" aria-labelledby="hero-title">
+  <section class="landing-hero" data-mode="without" aria-labelledby="hero-title">
     <div class="landing-hero-copy">
-      <p class="hero-kicker">Traffic control for parallel coding</p>
-      <h1 id="hero-title">Farled</h1>
+      <p class="hero-kicker">Farled · traffic control for parallel coding</p>
+      <h1 id="hero-title">See overlapping work before it becomes a merge problem.</h1>
       <p class="landing-etym"><span>farled</span> <b>/ˈfɑːrˌleːd/</b> · Swedish — a navigable channel; a marked, safe route through water.</p>
-      <p class="hero-offer">See overlapping work before it becomes a merge problem.</p>
-      <p class="lede">Farled shows when developers and coding agents are changing the same parts of a codebase, then warns the team while there is still time to coordinate.</p>
+      <p class="lede">Your agents ship in parallel. Farled gives the traffic a chart: it shows when developers and coding agents are changing the same parts of a codebase, and warns the team while there is still time to coordinate.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#how-it-works">Watch the example</a>
-        <a class="btn btn-ghost" href="/platform.html">Technical deep dive</a>
+        <a class="btn btn-primary" href="#start">Try the demo</a>
+        <a class="btn btn-ghost" href="/platform">Technical deep dive</a>
       </div>
       <p class="hero-footnote">Humans, Claude, Codex, Cursor, and other tools share the same view. Nothing is locked.</p>
     </div>
 
     <div class="mode-switch" role="group" aria-label="Compare the workflow">
-      <button type="button" data-mode-button="without" aria-pressed="false">Without Farled</button>
-      <button type="button" data-mode-button="with" aria-pressed="true">With Farled</button>
+      <button type="button" data-mode-button="without" aria-pressed="true">Without Farled</button>
+      <button type="button" data-mode-button="with" aria-pressed="false">With Farled</button>
     </div>
 
     <div class="traffic-visual" role="img" aria-label="Alice and an agent work in parallel. Farled spots that both are changing checkout code and helps the work proceed in sequence.">
@@ -241,7 +240,7 @@
     <div class="tool-line" aria-label="Compatible participants">
       <span>Human developers</span><i></i><span>Claude Code</span><i></i><span>Codex</span><i></i><span>Cursor</span><i></i><span>GitHub</span><i></i><span>Any MCP client</span>
     </div>
-    <p class="technical-link"><a href="/platform.html">Explore live radar, passage plans, dispatch, connectors, and the open protocol →</a></p>
+    <p class="technical-link"><a href="/platform">Explore live radar, passage plans, dispatch, connectors, and the open protocol →</a></p>
   </section>
 
   <section class="landing-proof">
@@ -289,32 +288,40 @@ farled demo collision</code></pre>
           <span>source code</span><span>diffs</span><span>prompts</span><span>chat logs</span><span>secrets</span>
         </div>
       </div>
-      <p class="privacy-foot">Preview every payload before it leaves a machine with <span class="mono">farled report --preview</span>. <a href="/security.html">Read the security details →</a></p>
+      <p class="privacy-foot">Preview every payload before it leaves a machine with <span class="mono">farled report --preview</span>. <a href="/security">Read the security details →</a></p>
     </div>
   </section>
 
   <section class="landing-pricing" id="pricing">
-    <p class="note-label">NOTE E — START SMALL</p>
+    <p class="note-label">NOTE E — HARBOR DUES</p>
     <div class="section-intro">
       <h2>Prove the problem first.<br><em>Expand only when it helps.</em></h2>
       <p>Run the open-source demo locally, or evaluate recent pull-request overlap with Farled Cloud during the design-partner stage.</p>
     </div>
-    <div class="landing-price-grid">
-      <article class="landing-price">
+    <div class="price-grid">
+      <article class="price-card">
         <p class="price-route"><span class="buoy-dot green"></span> Community</p>
-        <p class="price"><b>Free</b><span>Apache-2.0 · your machine</span></p>
-        <p>Local reporter, live radar, deterministic warnings, dashboard, and agent tools.</p>
+        <p class="price"><b>Free</b><span>forever · Apache-2.0 · your machine</span></p>
+        <p>Local reporter, live radar, deterministic warnings, dashboard, passage plans, and agent tools.</p>
         <a href="#start">Run the demo →</a>
       </article>
-      <article class="landing-price cloud-route">
-        <p class="price-route"><span class="buoy-dot gold"></span> Cloud design partner</p>
-        <p class="price"><b>6 months free</b><span>for active design partners</span></p>
-        <p>Hosted team view, pull-request analysis, annotations, and direct access to shape the product.</p>
-        <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">Request an evaluation →</a><!--email_on-->
+      <article class="price-card price-featured">
+        <p class="price-route"><span class="buoy-dot gold"></span> Cloud Team</p>
+        <p class="price"><b>$10</b><span>per human / month</span></p>
+        <p class="price price-sub"><b>$5</b><span>per agent / month · 14-day trial</span></p>
+        <p>Hosted team view, pull-request analysis and annotations, approval inbox, connectors.</p>
+        <!-- GO-LIVE: restore href https://cloud.farled.dev/signup once the cloud host is up (deploy/README.md) -->
+        <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Cloud%20trial">Start a trial — request access →</a><!--email_on-->
+      </article>
+      <article class="price-card">
+        <p class="price-route"><span class="buoy-dot"></span> Enterprise</p>
+        <p class="price"><b>Custom</b><span>annual · talk to us</span></p>
+        <p>Self-hosted or single-tenant, audit exports, retention. Roadmap: SSO/SCIM, SOC 2.</p>
+        <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20Enterprise">Talk to us →</a><!--email_on-->
       </article>
     </div>
-    <p class="pricing-detail"><a href="/platform.html#pricing">See the full Community, Cloud, and Enterprise comparison →</a></p>
-  </section>
+    <p class="pr-foot">Design-partner berths are open: six months free in exchange for honest feedback and a case study. <!--email_off--><a href="mailto:info@farled.dev?subject=Farled%20design%20partner">info@farled.dev</a><!--email_on--></p>
+      </section>
 
   <section class="landing-start" id="start">
     <div>
@@ -325,7 +332,7 @@ farled demo collision</code></pre>
     <div class="start-action">
       <pre class="cmd"><code>farled demo collision</code></pre>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="/platform.html#get-started">Installation details</a>
+        <a class="btn btn-primary" href="/platform#get-started">Installation details</a>
         <!--email_off--><a class="btn btn-ghost" href="mailto:info@farled.dev?subject=Farled%20early%20access">Request early access</a><!--email_on-->
       </div>
     </div>
@@ -336,8 +343,9 @@ farled demo collision</code></pre>
   <div>
     <span class="brand-name">Farled</span>
     <span class="foot-sep">·</span> shared awareness for parallel coding
-    <span class="foot-sep">·</span> <a href="/platform.html">Technical details</a>
-    <span class="foot-sep">·</span> <a href="/security.html">Security</a>
+    <span class="foot-sep">·</span> <a href="/platform">Technical details</a>
+    <span class="foot-sep">·</span> <a href="/security">Security</a>
+    <span class="foot-sep">·</span> <!--email_off--><a href="mailto:info@farled.dev">info@farled.dev</a><!--email_on-->
   </div>
   <div class="foot-meta mono">metadata only · advisory always · farled/v1</div>
   <div class="foot-company">Farled is built by <a href="https://melkarllc.com">Melkar LLC</a> · © 2026 Melkar LLC</div>
@@ -354,8 +362,12 @@ farled demo collision</code></pre>
       button.setAttribute('aria-pressed', String(button.dataset.modeButton === mode));
     }
   };
+  let userChose = false;
   for (const button of modeButtons) {
-    button.addEventListener('click', () => setMode(button.dataset.modeButton));
+    button.addEventListener('click', () => { userChose = true; setMode(button.dataset.modeButton); });
+  }
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setTimeout(() => { if (!userChose) setMode('with'); }, 3200);
   }
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

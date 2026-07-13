@@ -230,6 +230,10 @@ section p { max-width: var(--measure); }
 .roadmap { font-family: var(--mono); font-size: .72rem; letter-spacing: .04em; color: var(--gold); text-transform: uppercase; }
 .pr-foot { margin-top: 1.6rem; font-size: .95rem; color: var(--ink-soft); }
 .pr-foot a { color: var(--ink); }
+.price-card > a { display: inline-block; margin-top: 4px; color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--starboard); }
+.price-featured > a { border-bottom-color: var(--gold); }
+.price-card > a:hover { color: var(--port); }
+.price-card > p:not(.price-route):not(.price) { margin: 12px 0 18px; color: var(--ink-soft); font-size: .93rem; }
 @media (max-width: 860px) { .price-grid { grid-template-columns: 1fr; } }
 
 /* ---- privacy caution ---- */
@@ -315,7 +319,7 @@ section p { max-width: var(--measure); }
 .landing-hero-copy {
   position: relative;
   z-index: 3;
-  width: min(440px, 42%);
+  width: min(500px, 46%);
 }
 .hero-kicker {
   margin-bottom: 18px;
@@ -327,9 +331,10 @@ section p { max-width: var(--measure); }
   text-transform: uppercase;
 }
 .landing-hero h1 {
-  margin-bottom: 6px;
-  font-size: 4.8rem;
-  line-height: .95;
+  margin-bottom: 12px;
+  font-size: clamp(2.1rem, 3.4vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
 }
 .landing-etym {
   max-width: 420px;
@@ -339,14 +344,6 @@ section p { max-width: var(--measure); }
 }
 .landing-etym span { color: var(--ink); font-family: var(--display); font-size: 1rem; font-style: italic; }
 .landing-etym b { font-family: var(--mono); font-size: .72rem; font-weight: 400; }
-.hero-offer {
-  max-width: 520px;
-  margin-bottom: 16px;
-  font-family: var(--display);
-  font-size: 2rem;
-  line-height: 1.14;
-  color: var(--ink);
-}
 .landing-hero .lede { max-width: 540px; }
 
 .mode-switch {
@@ -462,7 +459,8 @@ section p { max-width: var(--measure); }
 .landing-facts div { min-width: 0; padding: 22px 24px; border-right: 1px solid var(--shoal); }
 .landing-facts div:first-child { padding-left: 0; }
 .landing-facts div:last-child { padding-right: 0; border-right: 0; }
-.landing-facts strong { display: block; margin-bottom: 2px; font-family: var(--display); font-size: 1.18rem; font-weight: 500; }
+.landing-facts strong { display: block; margin-bottom: 2px; font-family: var(--mono); font-size: .78rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+.landing-facts strong::before { content: "◆ "; color: var(--gold); }
 .landing-facts span { color: var(--ink-soft); font-size: .86rem; }
 
 /* ---- four-step story ---- */
@@ -630,8 +628,7 @@ section p { max-width: var(--measure); }
 
 @media (max-width: 700px) {
   .landing-hero { padding-top: 44px; }
-  .landing-hero h1 { font-size: 3.5rem; }
-  .hero-offer { font-size: 1.65rem; }
+  .landing-hero h1 { font-size: 2rem; }
   .landing-facts { grid-template-columns: 1fr; }
   .landing-facts div,
   .landing-facts div:first-child,
@@ -663,8 +660,7 @@ section p { max-width: var(--measure); }
 }
 
 @media (max-width: 480px) {
-  .landing-hero h1 { font-size: 3rem; }
-  .hero-offer { font-size: 1.45rem; }
+  .landing-hero h1 { font-size: 1.72rem; }
   .mode-switch { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
   .mode-switch button { padding: 0 8px; }
   .traffic-visual { width: 150%; margin-right: -25%; margin-left: -25%; }
